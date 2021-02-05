@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Finances</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+</head>
+
+<body>
+    <div class="sitename">
+        <h2>Finances</h2>
+    </div>
+    <div class="row">
+        <div class="column left">
+            <h2>Опції</h2><br>
+            <div class="options">
+                <a href="#"> Мій профіль </a><br>
+                <a href="#"> Додати людину </a><br>
+                <a href="#"> Згенерувати звіт </a><br>
+            </div>
+        </div>
+        <div class="column right">
+            <div class="textarea">
+                <form id="main_form">
+                    <p><strong>Додати запис:</strong></p><br>
+                    <p><input id="text" maxlength="25" size="40" value="" required pattern="\d+(.\d{2})?"></p>
+                    <p><input type="button" onClick="build();" value="Додати"></p>
+                    <input id="income" type="radio" value="income" checked name="tech" />Дохід&nbsp
+                    <input id="consumption" type="radio" value="consumption" checked name="tech" />Витрати
+                </form>
+            </div>
+            <div id="archive">
+                <table id="archive_table">
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/js/main.js"></script>
+    @RenderBody()
+</body>
+
+</html>

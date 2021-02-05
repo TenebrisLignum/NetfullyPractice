@@ -1,0 +1,53 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.row{
+    height: 700px;
+}
+
+.sitename{
+    border: 1px solid black;
+    background-color: #01A65F;
+    padding: 10px;
+    padding-left: 15px; 
+    font-size: 150%;
+}
+
+.column {
+    float: left;
+    padding: 10px;
+    height: 100%;
+}
+
+.left {
+    width: 20%;
+    border: 1px solid black;
+    background-color:#32BF83;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.options a{
+    color: black;
+}
+
+.right {
+    width: 80%;    
+    padding-left: 15px;
+    border: 1px solid black;
+    background-color:#74FFC4;
+}
+
+.textarea{
+    padding-top: 15px;
+}
+
+#text{
+    float: left;
+}
+
+#archive{
+    padding-top: 15px;
+}
