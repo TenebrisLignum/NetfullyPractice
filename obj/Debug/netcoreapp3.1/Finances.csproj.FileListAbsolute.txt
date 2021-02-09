@@ -1,4 +1,3 @@
-D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\appsettings.json
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Finances.exe
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Finances.deps.json
@@ -142,3 +141,4 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.c
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Finances.RazorTargetAssemblyInfo.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Finances.Views.pdb
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Finances.csproj.CopyComplete
+D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\appsettings.production.json
