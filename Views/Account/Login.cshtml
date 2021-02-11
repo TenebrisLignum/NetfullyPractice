@@ -1,0 +1,30 @@
+﻿@model Finances.Models.LoginViewModel
+<div>
+    <h1>Вхід в особистий кабінет</h1>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            <div asp-validation-summary="All"></div>
+            Логін:
+            <div>
+                <label asp-for="UserName"></label>
+                <input name="UserName" asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            Пароль:
+            <div>
+                <label asp-for="Password"></label>
+                <input name="Password" type="password" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                Запам'ятати мене?
+                <label asp-for="RememberMe"></label>
+                <input type="checkbox" asp-for="RememberMe" />
+                <span asp-validation-for="RememberMe"></span>
+            </div>
+            <div>
+                <input type="submit" value="Увійти" />
+            </div>
+        </form>
+    </div>
+</div>

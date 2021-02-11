@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Finances.Domain;
+using Finances.Service;
 using MyCompany.Service;
 using Finances.Domain.Repositories.Abstract;
 using Finances.Domain.Repositories.EntityFramework;
@@ -55,8 +56,17 @@ namespace Finances
                 options.SlidingExpiration = true;
             });
 
+            //Налаштовуємо політику авторизації для Admin area
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            });
+
             //Підтримка контролерів та представлень (MVC)
-            services.AddControllersWithViews()
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            })
                 //сумісність з ASP.NET Core 3.0
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
                 .AddSessionStateTempDataProvider();
@@ -84,6 +94,7 @@ namespace Finances
             // Реєстрація потрібних маршрутів
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
