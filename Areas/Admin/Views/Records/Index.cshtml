@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Finances.Domain.Entities.EntityBase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Додати запис", "Create", "Records", new { area = "Admin" }, null)
+</p>
+<div class="textarea">
+    <form id="main_form">
+        <p><strong>Додати запис:</strong></p><br>
+        <p><input id="text" maxlength="25" size="40" value="" required pattern="\d+(.\d{2})?"></p>
+        <p><input type="button" onClick="build();" value="Додати"></p>
+        <input id="income" type="radio" value="income" checked name="tech" />Дохід&nbsp
+        <input id="consumption" type="radio" value="consumption" checked name="tech" />Витрати
+        <select>
+            <option>Продукти</option>
+            <option>Не продукти</option>
+        </select>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @if (item.Direction)
+                {
+                    <p>Дохід</p>
+                }
+                else
+                {
+                    <p>Витрати</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
