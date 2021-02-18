@@ -149,3 +149,5 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStar
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Records\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Records\Create.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Records\Delete.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Records\Edit.cshtml.g.cs

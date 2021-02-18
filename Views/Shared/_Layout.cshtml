@@ -6,7 +6,7 @@
 <head>
     <title>@Config.CompanyName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -30,3 +30,8 @@
 </body>
 
 </html>
+
+@if (IsSectionDefined("scripts"))
+{
+    RenderSection("scripts");
+}

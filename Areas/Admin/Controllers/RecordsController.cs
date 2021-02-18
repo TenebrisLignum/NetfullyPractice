@@ -1,6 +1,9 @@
 ﻿using Finances.Domain;
+using Finances.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +42,10 @@ namespace Finances.Areas.Admin.Controllers
         // POST: RecordsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(EntityBase entityBase)
         {
+            _context.EntityBase.Add(entityBase);
+            await _context.SaveChangesAsync();
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -52,45 +57,56 @@ namespace Finances.Areas.Admin.Controllers
         }
 
         // GET: RecordsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            return View();
+            if (id != null)
+            {
+                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
+                if (entityBase != null)
+                    return View(entityBase);
+            }
+            return NotFound();
         }
 
         // POST: RecordsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(EntityBase entityBase)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.EntityBase.Update(entityBase);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: RecordsController/Delete/5
-        public ActionResult Delete(int id)
+        [ActionName("Delete")]        
+        public async Task<IActionResult> ConfirmDelete(Guid id)
         {
-            return View();
+            if (id != null)
+            {
+                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
+                if (entityBase != null)
+                    return View(entityBase);
+            }
+            return NotFound();
         }
 
         // POST: RecordsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            try
+            if (id != null)
             {
-                return RedirectToAction(nameof(Index));
+                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
+                if (entityBase != null)
+                {
+                    _context.EntityBase.Remove(entityBase);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
     }
 }

@@ -10,35 +10,41 @@
 <h4>EntityBase</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Direction" /> @Html.DisplayNameFor(model => model.Direction)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAdded" class="control-label"></label>
-                <input asp-for="DateAdded" class="form-control" />
-                <span asp-validation-for="DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+@using (Html.BeginForm("Create", "Records"))
+    {
+    <fieldset>
+        <legend>Новий запис</legend>
+        <input type="hidden" value="@ViewBag.Id" name="Id" />
+        <p>
+            Сума <br />
+            @Html.EditorFor(model => model.Amount)
+        </p>
+
+        <p>
+            Дохід? <br />
+            @Html.EditorFor(model => model.Direction)
+        </p>
+
+        <p>
+            Категорія <br />
+            @Html.EditorFor(model => model.Category)
+        </p>
+
+        <input type="hidden" value="@ViewBag.DateAdded;" name="DateAdded" />
+
+        <p>
+            <input type="submit" value="Додати" />
+        </p>
+
+    </fieldset>
+    }
+    <div>
+        @Html.ActionLink("Назад", "Index")
     </div>
 </div>
+
+
 
 <div>
     <a asp-action="Index">Back to List</a>

@@ -7,14 +7,12 @@
 <div>
     <h2>@strTitle</h2><br />
     <div>
-        <h3>Керування записами</h3>
         <div class="div-box">
-            @Html.ActionLink("Додати запис", "Index", "Records", new { area = "Admin" }, null)
+            @Html.ActionLink("Керування записами", "Index", "Records", new { area = "Admin" }, null)
         </div>
     </div>
+    <br />
     <div class="div-box">
-        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-            <input type="submit" value="Вийти" />
-        </form>
+        @Html.ActionLink("Вийти", "Logout", "Home", null)
     </div>
 </div>
