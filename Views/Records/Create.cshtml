@@ -1,4 +1,5 @@
-﻿@model Finances.Domain.Entities.EntityBase
+﻿@using Finances.Domain.Entities;
+@model IndexViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -11,24 +12,31 @@
 <hr />
 <div class="row">
 
-@using (Html.BeginForm("Create", "Records"))
+    @using (Html.BeginForm("Create", "Records"))
     {
     <fieldset>
         <legend>Новий запис</legend>
         <input type="hidden" value="@ViewBag.Id" name="Id" />
         <p>
             Сума <br />
-            @Html.EditorFor(model => model.Amount)
-        </p>
+            @Html.EditorFor(model => model.EntityBase.Amount)
+        </p>                                       
 
         <p>
             Дохід? <br />
-            @Html.EditorFor(model => model.Direction)
+            @Html.EditorFor(model => model.EntityBase.Direction)
         </p>
 
         <p>
             Категорія <br />
-            @Html.EditorFor(model => model.Category)
+            <select name="Categories">
+                @foreach (Categories c in Model.Categories)
+                {
+                    <option value="@c.Name">@c.Name</option>
+                }
+            </select>
+
+
         </p>
 
         <input type="hidden" value="@ViewBag.DateAdded;" name="DateAdded" />

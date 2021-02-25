@@ -30,6 +30,8 @@ namespace Finances
 
             //Підключаємо необхідний функціонал сайту в якості сервісів
             services.AddTransient<IEntityBaseRepository, EFEntityBaseRepository>();
+            services.AddTransient<ICategoriesRepository, EFCategoriesRepository>();
+            services.AddTransient<IUserRepository, EFUserRepository>();
             services.AddTransient<DataManager>();
 
             //Підключаємо контекст БД

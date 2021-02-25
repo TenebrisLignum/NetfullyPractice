@@ -12,39 +12,38 @@ using System.Threading.Tasks;
 namespace Finances.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RecordsController : Controller
+    public class CategoriesController : Controller
     {
         private readonly AppDbContext _context;
-
-        public RecordsController(AppDbContext context)
+        public CategoriesController(AppDbContext context)
         {
             _context = context;
         }
-        // GET: RecordsController
+        // GET: CategoriesController
         public ActionResult Index()
         {
-            var entityBase = _context.EntityBase.ToList();
-            return View(entityBase);
+            var catergories = _context.Categories.OrderByDescending(p => p.Name).ToList();
+            return View(catergories);
         }
 
-        // GET: RecordsController/Details/5
+        // GET: CategoriesController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: RecordsController/Create
+        // GET: CategoriesController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RecordsController/Create
+        // POST: CategoriesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EntityBase entityBase)
+        public async Task<IActionResult> Create(Categories categories)
         {
-            _context.EntityBase.Add(entityBase);
+            _context.Categories.Add(categories);
             await _context.SaveChangesAsync();
             try
             {
@@ -56,52 +55,51 @@ namespace Finances.Areas.Admin.Controllers
             }
         }
 
-        // GET: RecordsController/Edit/5
+        // GET: CategoriesController/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id != null)
             {
-                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
-                if (entityBase != null)
-                    return View(entityBase);
+                Categories categories = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (categories != null)
+                    return View(categories);
             }
             return NotFound();
         }
 
-        // POST: RecordsController/Edit/5
+        // POST: CategoriesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EntityBase entityBase)
+        public async Task<IActionResult> Edit(Categories categories)
         {
-            _context.EntityBase.Update(entityBase);
+            _context.Categories.Update(categories);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        // GET: RecordsController/Delete/5
-        [ActionName("Delete")]        
+        // GET: CategoriesController/Delete/5
+        [ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(Guid id)
         {
             if (id != null)
             {
-                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
-                if (entityBase != null)
-                    return View(entityBase);
+                Categories categories = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (categories != null)
+                    return View(categories);
             }
             return NotFound();
         }
 
-        // POST: RecordsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id != null)
             {
-                EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
-                if (entityBase != null)
+                Categories categories = await _context.Categories.FirstOrDefaultAsync(p => p.Id == id);
+                if (categories != null)
                 {
-                    _context.EntityBase.Remove(entityBase);
+                    _context.Categories.Remove(categories);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }

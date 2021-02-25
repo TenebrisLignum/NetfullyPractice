@@ -1,0 +1,33 @@
+﻿@model Finances.Models.RegisterViewModel
+
+<h2>Реєстрация нового користувача</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        Email:
+        <label asp-for="Email"></label><br />
+        <input name="Email" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        Логін:
+        <label asp-for="UserName"></label><br />
+        <input name="UserName" asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        Пароль:
+        <label asp-for="Password"></label><br />
+        <input name="Password" type="password" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        Повторити пароль:
+        <label asp-for="PasswordConfirm"></label><br />
+        <input name="PasswordConfirm" type="password" asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input type="submit" value="Реєстрация" />
+    </div>
+</form>

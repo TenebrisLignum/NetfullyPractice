@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5gT2ePG7F59vPacDlARR5mRnJyo5z7W2mmw8D9VnMjlwoBV35b3mfOkloo1XUpcJazAZ0WgSb7a4VzQkT+W+2w==",
+  "dgSpecHash": "cSVgbspShs/yy5Rvn3Skz2Yt/ScA1WbziN1peBHhphTFgWWhTUvHHbH/96wsb7pf1iJw2CeML6MZ9KOUF0km3g==",
   "success": true,
   "projectFilePath": "D:\\VSprojects\\Finances\\Finances.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.1\\microsoft.entityframeworkcore.design.3.1.1.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.1\\microsoft.entityframeworkcore.relational.3.1.1.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.1\\microsoft.entityframeworkcore.sqlserver.3.1.1.nupkg.sha512",
+    "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.1\\microsoft.entityframeworkcore.tools.3.1.1.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.1\\microsoft.extensions.caching.abstractions.3.1.1.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.1\\microsoft.extensions.caching.memory.3.1.1.nupkg.sha512",
     "C:\\Users\\Qwerty\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.1\\microsoft.extensions.configuration.3.1.1.nupkg.sha512",

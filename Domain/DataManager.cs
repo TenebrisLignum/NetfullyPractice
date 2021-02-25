@@ -8,12 +8,15 @@ namespace Finances.Domain
 {
     public class DataManager
     {
-        // Клас для керування репозиторієм
         public IEntityBaseRepository EntityBase { get; set; }
+        public ICategoriesRepository Categories { get; set; }
+        public IUserRepository User { get; set; }
 
-        public DataManager(IEntityBaseRepository EntityBaseRepository)
+        public DataManager(IEntityBaseRepository EntityBaseRepository, ICategoriesRepository CategoriesRepository, IUserRepository UserRepository)
         {
             EntityBase = EntityBaseRepository;
+            Categories = CategoriesRepository;
+            User = UserRepository;
         }
     }
 }

@@ -7,7 +7,6 @@ using Finances.Domain.Entities;
 namespace Finances.Domain.Repositories.Abstract
 {
     public interface IEntityBaseRepository
-        // Інтерфейс, який описує функціонал сутності
     {
         IQueryable<EntityBase> GetEntityBase();
         EntityBase GetEntityBaseById(Guid id);

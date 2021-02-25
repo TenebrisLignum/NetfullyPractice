@@ -19,6 +19,27 @@ namespace Finances.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Finances.Domain.Entities.Categories", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("34314e98-fad1-4033-a748-1e5bc57a3079"),
+                            Name = "Продукти"
+                        });
+                });
+
             modelBuilder.Entity("Finances.Domain.Entities.EntityBase", b =>
                 {
                     b.Property<Guid>("Id")
@@ -47,7 +68,7 @@ namespace Finances.Migrations
                             Id = new Guid("63dc8fa6-07ae-4391-8916-e057f71239ce"),
                             Amount = 0f,
                             Category = "None",
-                            DateAdded = new DateTime(2021, 2, 9, 21, 16, 56, 742, DateTimeKind.Local).AddTicks(6407),
+                            DateAdded = new DateTime(2021, 2, 24, 19, 7, 4, 377, DateTimeKind.Local).AddTicks(1656),
                             Direction = true
                         });
                 });
@@ -82,7 +103,7 @@ namespace Finances.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "4bb15fe2-4fba-4d55-9526-0febee3379d3",
+                            ConcurrencyStamp = "a32548a7-8775-4ede-8445-a479b91ec006",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -122,6 +143,10 @@ namespace Finances.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -176,23 +201,7 @@ namespace Finances.Migrations
 
                     b.ToTable("AspNetUsers");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b19d0fea-f36d-4bb0-9565-e1b080104636",
-                            Email = "my@email.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MY@EMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHxC5p8MG5CfFSFebD4oAcwXEvGekOz83VZMs7GMPvE0gnea3tyeknRZosuGi9urEQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -280,6 +289,31 @@ namespace Finances.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Finances.Domain.Entities.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8de5dc3f-1035-42a1-9864-caedb2555418",
+                            Email = "my@email.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MY@EMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEED6QDQhkf04QYg/2wfvr2aAdCoMa/yUXqCXtisnnQY0x8KkDggIuigk0XzOWrdVfw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

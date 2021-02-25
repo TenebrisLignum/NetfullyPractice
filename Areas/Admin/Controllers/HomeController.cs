@@ -21,5 +21,10 @@ namespace Finances.Areas.Admin.Controllers
         {
             return View(dataManager.EntityBase.GetEntityBase());
         }
+
+        public IActionResult TheCategories()
+        {
+            return View(dataManager.Categories.GetCategories());
+        }
     }
 }

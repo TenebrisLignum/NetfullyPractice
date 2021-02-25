@@ -10,8 +10,8 @@ namespace Finances.Domain.Repositories.EntityFramework
 {
     public class EFEntityBaseRepository : IEntityBaseRepository
     {
-        // Реалізація функціоналу сутності
         private readonly AppDbContext context;
+
         public EFEntityBaseRepository(AppDbContext context)
         {
             this.context = context;

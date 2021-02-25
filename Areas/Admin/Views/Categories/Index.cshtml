@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Finances.Domain.Entities.Categories>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    @Html.ActionLink("Додати", "Create", "Categories", new { area = "Admin" }, null)
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Редагувати", "Edit", "Categories", new { area = "Admin", id = item.Id }, null)|
+                @Html.ActionLink("Видалити", "Delete", "Categories", new { area = "Admin", id = item.Id }, null)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

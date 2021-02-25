@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Finances.Models;
+using Finances.Domain.Entities;
 
 namespace Finances.Controllers
 {
@@ -20,6 +21,35 @@ namespace Finances.Controllers
             signInManager = signinMgr;
         }
 
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User { Email = model.Email, UserName = model.UserName};
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -47,7 +77,8 @@ namespace Finances.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();

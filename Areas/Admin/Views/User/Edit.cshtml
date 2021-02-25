@@ -1,0 +1,42 @@
+﻿@model Finances.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>EntityBase</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Edit", "User"))
+        {
+        <fieldset>
+            <legend> Редагування </legend>
+            <p>
+                UserName:  <br />
+                @Html.EditorFor(model => model.UserName)
+            </p>
+
+            <p>
+                Email:  <br />
+                @Html.EditorFor(model => model.Email)
+            </p>
+
+            <p>
+                <input type="submit" value="Змінити" />
+            </p>
+
+        </fieldset>
+        }
+    </div>
+    <div>
+        @Html.ActionLink("Назад", "Edit", "User", new { area = "Admin" }, null)
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

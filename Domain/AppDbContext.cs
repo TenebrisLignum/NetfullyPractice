@@ -18,6 +18,8 @@ namespace Finances.Domain
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<EntityBase> EntityBase { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +32,7 @@ namespace Finances.Domain
                 NormalizedName = "ADMIN"
             });
 
-            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
+            modelBuilder.Entity<User>().HasData(new User
             {
                 Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                 UserName = "admin",
@@ -38,7 +40,7 @@ namespace Finances.Domain
                 Email = "my@email.com",
                 NormalizedEmail = "MY@EMAIL.COM",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "superpassword"),
+                PasswordHash = new PasswordHasher<User>().HashPassword(null, "superpassword"),
                 SecurityStamp = string.Empty
             });
 
@@ -55,6 +57,12 @@ namespace Finances.Domain
                 Direction = true,
                 Category = "None",
                 DateAdded = DateTime.Now
+            });
+
+            modelBuilder.Entity<Categories>().HasData(new Categories
+            {
+                Id = new Guid("34314e98-fad1-4033-a748-1e5bc57a3079"),
+                Name = "Продукти"
             });
         }
     }

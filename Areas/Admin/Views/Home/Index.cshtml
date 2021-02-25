@@ -8,11 +8,12 @@
     <h2>@strTitle</h2><br />
     <div>
         <div class="div-box">
-            @Html.ActionLink("Керування записами", "Index", "Records", new { area = "Admin" }, null)
+            @Html.ActionLink("Керування записами", "Index", "Records", null)
+            <br>
+            @Html.ActionLink("Категорії", "Index", "Categories", new { area = "Admin" }, null)
+            <br>
+            @Html.ActionLink("Користувачі", "Index", "User", new { area = "Admin" }, null)
         </div>
     </div>
     <br />
-    <div class="div-box">
-        @Html.ActionLink("Вийти", "Logout", "Home", null)
-    </div>
 </div>

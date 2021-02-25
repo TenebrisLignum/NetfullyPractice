@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Finances.Domain.Entities.User>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.ActionLink("Редагувати", "Edit", "User", new { area = "Admin", id = item.Id }, null) |
+                    @Html.ActionLink("Деталі", "Details", "User", new { area = "Admin", id = item.Id }, null) |
+                    @Html.ActionLink("Видалити", "Delete", "User", new { area = "Admin", id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

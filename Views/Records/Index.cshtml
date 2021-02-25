@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Додати запис", "Create", "Records", new { area = "Admin" }, null)
+    @Html.ActionLink("Додати запис", "Create", "Records", null)
 </p>
 <table class="table">
     <thead>
@@ -29,7 +29,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Amount)
+                @Html.DisplayFor(modelItem => item.Amount) грн.
             </td>
             <td>
                 @if (item.Direction)
@@ -48,8 +48,9 @@
                 @Html.DisplayFor(modelItem => item.DateAdded)
             </td>
             <td>
-                @Html.ActionLink("Редагувати", "Edit", "Records", new { area = "Admin", id = item.Id }, null) |
-                @Html.ActionLink("Видалити", "Delete", "Records", new { area = "Admin", id = item.Id }, null)
+                @Html.ActionLink("Редагувати", "Edit", "Records", new {id = item.Id }, null) |
+                @Html.ActionLink("Деталі", "Details", "Records", new {id = item.Id }, null) |
+                @Html.ActionLink("Видалити", "Delete", "Records", new {id = item.Id }, null)
             </td>
         </tr>
 }

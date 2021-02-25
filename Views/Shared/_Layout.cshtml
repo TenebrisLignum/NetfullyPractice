@@ -17,9 +17,24 @@
         <div class="column left">
             <h2>Опції</h2><br>
             <div class="options">
-                <a href="#"> Мій профіль </a><br>
-                <a href="#"> Додати людину </a><br>
-                <a href="#"> Згенерувати звіт </a><br>
+               @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="#"> Мій профіль </a><br>
+                    @Html.ActionLink("Керування записами", "Index", "Records")
+                    <br>
+                    <a href="#"> Додати людину </a><br>
+                    <a href="#"> Згенерувати звіт </a><br><br>
+                    <p>@User.Identity.Name</p>
+
+                    <form asp-area="" method="post" asp-controller="Account" asp-action="Logout">
+                        <input type="submit" value="Вийти" />
+                    </form>
+                }
+                else
+                {
+                    @Html.ActionLink("Вхід", "Login", "Account")<br>
+                    @Html.ActionLink("Реєстрація", "Register", "Account")
+                }
             </div>
         </div>
         <div class="column right">
