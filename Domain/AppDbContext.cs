@@ -20,7 +20,8 @@ namespace Finances.Domain
         public DbSet<EntityBase> EntityBase { get; set; }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<User> User { get; set; }
-
+        public DbSet<Family> Family { get; set; }
+        public DbSet<FamilyUser> FamilyUser { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -53,17 +54,33 @@ namespace Finances.Domain
             modelBuilder.Entity<EntityBase>().HasData(new EntityBase
             {
                 Id = new Guid("63dc8fa6-07ae-4391-8916-e057f71239ce"),
+                TheUser = "admin",
                 Amount = 0,
                 Direction = true,
                 Category = "None",
                 DateAdded = DateTime.Now
-            });
+            }); ;
 
             modelBuilder.Entity<Categories>().HasData(new Categories
             {
                 Id = new Guid("34314e98-fad1-4033-a748-1e5bc57a3079"),
                 Name = "Продукти"
             });
+
+            modelBuilder.Entity<FamilyUser>()
+                .HasKey(fu => new { fu.UserId, fu.FamilyId });
+
+            modelBuilder
+                .Entity<FamilyUser>()
+                .HasOne(p => p.User)
+                .WithMany(f => f.FamilyUser)
+                .HasForeignKey(fu => fu.UserId);
+
+            modelBuilder
+               .Entity<FamilyUser>()
+               .HasOne(p => p.Family)
+               .WithMany(f => f.FamilyUser)
+               .HasForeignKey(fu => fu.FamilyId);
         }
     }
 }

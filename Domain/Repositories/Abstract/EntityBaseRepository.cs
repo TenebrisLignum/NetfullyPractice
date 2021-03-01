@@ -6,10 +6,11 @@ using Finances.Domain.Entities;
 
 namespace Finances.Domain.Repositories.Abstract
 {
-    public interface IEntityBaseRepository
+    public interface IRecordsRepository
     {
         IQueryable<EntityBase> GetEntityBase();
         EntityBase GetEntityBaseById(Guid id);
+        EntityBase GetEntityBaseByTheUser(string TheUser);
         EntityBase GetEntityBaseByAmount(float Amount);
         EntityBase GetEntityBaseByDirection(bool Direction);
         EntityBase GetEntityBaseByCategory(string Category);

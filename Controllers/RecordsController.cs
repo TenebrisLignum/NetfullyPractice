@@ -38,15 +38,15 @@ namespace Finances.Areas.Admin.Controllers
         }
 
         public ActionResult Create()
-        {
+        {            
             var entityBase = new EntityBase();
             List<Categories> categories = _context.Categories.ToList();
             List<Categories> ctgModels = categories
                 .Select(c => new Categories { Id = c.Id, Name = c.Name })
                 .ToList();
-
             IndexViewModel ivm = new IndexViewModel { EntityBase = entityBase, Categories = ctgModels };
-            return View(ivm);
+            ViewBag.CategoriesList = new SelectList(ctgModels, "Name", "Name");
+            return View();
         }
 
         [HttpPost]

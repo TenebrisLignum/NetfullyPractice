@@ -54,7 +54,10 @@ namespace Finances.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(User user)
         {
-            _context.User.Update(user);
+            User userUpdate = await _context.User.FirstOrDefaultAsync(p => p.Id == user.Id);
+            userUpdate.UserName = user.UserName;
+            userUpdate.Email = user.Email;
+            _context.User.Update(userUpdate);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }

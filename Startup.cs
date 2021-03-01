@@ -29,9 +29,10 @@ namespace Finances
             Configuration.Bind("Project", new Config());
 
             //Підключаємо необхідний функціонал сайту в якості сервісів
-            services.AddTransient<IEntityBaseRepository, EFEntityBaseRepository>();
+            services.AddTransient<IRecordsRepository, EFEntityBaseRepository>();
             services.AddTransient<ICategoriesRepository, EFCategoriesRepository>();
             services.AddTransient<IUserRepository, EFUserRepository>();
+            services.AddTransient<IFamilyRepository, EFFamilyRepository>();
             services.AddTransient<DataManager>();
 
             //Підключаємо контекст БД

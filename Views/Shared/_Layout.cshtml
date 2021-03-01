@@ -17,12 +17,18 @@
         <div class="column left">
             <h2>Опції</h2><br>
             <div class="options">
-               @if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated)
                 {
+                    if (Equals(User.Identity.Name, "admin"))
+                    {
+                        @Html.ActionLink("Панель адміністратора", "Index", "Home", new { area = "Admin" }, null)
+                        <br>
+                    }
                     <a href="#"> Мій профіль </a><br>
                     @Html.ActionLink("Керування записами", "Index", "Records")
                     <br>
-                    <a href="#"> Додати людину </a><br>
+                    @Html.ActionLink("Керування групами", "Index", "Family")
+                    <br>
                     <a href="#"> Згенерувати звіт </a><br><br>
                     <p>@User.Identity.Name</p>
 

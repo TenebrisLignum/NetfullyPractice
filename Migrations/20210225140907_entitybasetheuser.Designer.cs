@@ -4,14 +4,16 @@ using Finances.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Finances.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210225140907_entitybasetheuser")]
+    partial class entitybasetheuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +48,6 @@ namespace Finances.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("About")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("Amount")
                         .HasColumnType("real");
 
@@ -60,9 +59,6 @@ namespace Finances.Migrations
 
                     b.Property<bool>("Direction")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Family")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TheUser")
                         .HasColumnType("nvarchar(max)");
@@ -77,38 +73,10 @@ namespace Finances.Migrations
                             Id = new Guid("63dc8fa6-07ae-4391-8916-e057f71239ce"),
                             Amount = 0f,
                             Category = "None",
-                            DateAdded = new DateTime(2021, 3, 1, 8, 50, 16, 222, DateTimeKind.Local).AddTicks(4450),
+                            DateAdded = new DateTime(2021, 2, 25, 16, 9, 6, 313, DateTimeKind.Local).AddTicks(9662),
                             Direction = true,
                             TheUser = "admin"
                         });
-                });
-
-            modelBuilder.Entity("Finances.Domain.Entities.Family", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Family");
-                });
-
-            modelBuilder.Entity("Finances.Domain.Entities.FamilyUser", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FamilyId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "FamilyId");
-
-                    b.HasIndex("FamilyId");
-
-                    b.ToTable("FamilyUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -141,7 +109,7 @@ namespace Finances.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "2a0ecb3e-c237-42b3-a8d4-fd8237636581",
+                            ConcurrencyStamp = "d6fc6232-c957-496a-9e15-4fc910152864",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -340,33 +308,18 @@ namespace Finances.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6625bfc2-fc92-4c53-b796-16bb63f995bc",
+                            ConcurrencyStamp = "99eecbb4-4614-4b0c-9573-bec4b3a9ceac",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEONyzdbUGASEB8PO2kRpFyS8zxwlcTt7PPv+YZRkzNNyoNxd6eu0y+3xzgmjdVQFcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAn0N97VXExsR+zZsGlro3Eg6UowXu3cy+7iFPhxuOqvL7yudCgxRc7k7d9z/fqPnQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
-                });
-
-            modelBuilder.Entity("Finances.Domain.Entities.FamilyUser", b =>
-                {
-                    b.HasOne("Finances.Domain.Entities.Family", "Family")
-                        .WithMany("FamilyUser")
-                        .HasForeignKey("FamilyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Finances.Domain.Entities.User", "User")
-                        .WithMany("FamilyUser")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

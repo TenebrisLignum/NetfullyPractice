@@ -8,7 +8,7 @@ using Finances.Domain.Repositories.Abstract;
 
 namespace Finances.Domain.Repositories.EntityFramework
 {
-    public class EFEntityBaseRepository : IEntityBaseRepository
+    public class EFEntityBaseRepository : IRecordsRepository
     {
         private readonly AppDbContext context;
 
@@ -25,6 +25,11 @@ namespace Finances.Domain.Repositories.EntityFramework
         public EntityBase GetEntityBaseById(Guid id)
         {
             return context.EntityBase.FirstOrDefault(x => x.Id == id);
+        }
+
+        public EntityBase GetEntityBaseByTheUser(string TheUser)
+        {
+            return context.EntityBase.FirstOrDefault(x => x.TheUser == TheUser);
         }
 
         public EntityBase GetEntityBaseByAmount(float Amount)

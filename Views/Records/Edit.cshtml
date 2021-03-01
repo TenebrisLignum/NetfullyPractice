@@ -12,28 +12,28 @@
 <div class="row">
     @using (Html.BeginForm("Edit", "Records"))
     {
-        <fieldset>
-            <legend> Редагування </legend>
-            <p>
-                Сума <br />
-                @Html.EditorFor(model => model.Amount)
-            </p>
+    <fieldset>
+        <legend> Редагування </legend>
+        <p>
+            Сума <br />
+            @Html.EditorFor(model => model.Amount)
+        </p>
 
-            <p>
-                Дохід? <br />
-                @Html.EditorFor(model => model.Direction)
-            </p>
+        <p>
+            Дохід? <br />
+            @Html.EditorFor(model => model.Direction)
+        </p>
 
-            <p>
-                Категорія <br />
-                @Html.EditorFor(model => model.Category)
-            </p>
+        <p>
+            Категорія <br />
+            @Html.EditorFor(model => model.Category)
+        </p>
 
-            <p>
-                <input type="submit" value="Змінити" />
-            </p>
+        <p>
+            <input type="submit" value="Змінити" />
+        </p>
 
-        </fieldset>
+    </fieldset>
     }
     <div>
         @Html.ActionLink("Назад", "Index")

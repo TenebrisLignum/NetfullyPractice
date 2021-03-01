@@ -18,9 +18,14 @@
     <Compile Remove="Migrations\20210224153909_user.Designer.cs" />
     <Compile Remove="Migrations\20210224170154_user.cs" />
     <Compile Remove="Migrations\20210224170154_user.Designer.cs" />
+    <Compile Remove="Migrations\20210301061552_family.cs" />
+    <Compile Remove="Migrations\20210301061552_family.Designer.cs" />
+    <Compile Remove="Migrations\20210301062840_family.cs" />
+    <Compile Remove="Migrations\20210301062840_family.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\A\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />

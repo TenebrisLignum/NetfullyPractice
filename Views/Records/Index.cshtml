@@ -11,6 +11,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.TheUser)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
             <th>
@@ -26,33 +29,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount) грн.
-            </td>
-            <td>
-                @if (item.Direction)
-                {
-                    <p>Дохід</p>
-                }
-                else
-                {
-                    <p>Витрати</p>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.ActionLink("Редагувати", "Edit", "Records", new {id = item.Id }, null) |
-                @Html.ActionLink("Деталі", "Details", "Records", new {id = item.Id }, null) |
-                @Html.ActionLink("Видалити", "Delete", "Records", new {id = item.Id }, null)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+            if (!Equals(User.Identity.Name, item.TheUser))
+            {
+                continue;
+            }
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.TheUser)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount) грн.
+                </td>
+                <td>
+                    @if (item.Direction)
+                    {
+                        <p>Дохід</p>
+                    }
+                    else
+                    {
+                        <p>Витрати</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.ActionLink("Редагувати", "Edit", "Records", new { id = item.Id }, null) |
+                    @Html.ActionLink("Деталі", "Details", "Records", new { id = item.Id }, null) |
+                    @Html.ActionLink("Видалити", "Delete", "Records", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
