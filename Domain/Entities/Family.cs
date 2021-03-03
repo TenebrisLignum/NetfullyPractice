@@ -8,7 +8,7 @@ namespace Finances.Domain.Entities
 {
     public class Family
     {
-        [Required]
+        [Key]
         public string Id { get; set; }
 
         [Display(Name = "Назва групи")]

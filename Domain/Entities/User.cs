@@ -9,8 +9,9 @@ namespace Finances.Domain.Entities
     [NotMapped]
     public class User : IdentityUser
     {
-        [Display(Name = "Група")]
+        [Display(Name = "Групи")]
         public List<FamilyUser> FamilyUser { get; set; }
+
         public User()
         {
             FamilyUser = new List<FamilyUser>();

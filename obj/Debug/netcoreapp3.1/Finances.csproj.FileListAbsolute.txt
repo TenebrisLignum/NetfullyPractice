@@ -163,3 +163,12 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Dele
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Create.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Create.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Edit.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\AddUser.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Details.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Delete.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Index.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Create.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Delete.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Edit.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Details.cshtml.g.cs

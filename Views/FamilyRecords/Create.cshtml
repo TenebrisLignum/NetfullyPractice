@@ -1,0 +1,48 @@
+﻿@using Finances.Domain.Entities;
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>EntityBase</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-route-familyId="@ViewBag.familyId">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="EntityBase.Family" type="hidden" value="@ViewBag.familyId" />
+            <div class="form-group">
+                <label asp-for="EntityBase.Amount" class="control-label"></label>
+                <input asp-for="EntityBase.Amount" class="form-control" />
+                <span asp-validation-for="EntityBase.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EntityBase.Direction" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.Category" class="control-label"></label>
+                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesList"></select>
+                <span asp-validation-for="EntityBase.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.About" class="control-label"></label>
+                <input asp-for="EntityBase.About" class="form-control" />
+                <span asp-validation-for="EntityBase.About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

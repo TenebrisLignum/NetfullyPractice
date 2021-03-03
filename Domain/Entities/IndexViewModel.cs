@@ -10,5 +10,7 @@ namespace Finances.Domain.Entities
     {
         public EntityBase EntityBase { get; set; }
         public IEnumerable<Categories> Categories { get; set; }
+        public IEnumerable<User> User { get; set; }
+        public Family Family { get; set; }
     }
 }

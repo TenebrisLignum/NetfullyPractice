@@ -1,6 +1,7 @@
 ﻿using Finances.Domain;
 using Finances.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,21 +15,17 @@ namespace Finances.Controllers
     public class FamilyController : Controller
     {
         private readonly AppDbContext _context;
-        public FamilyController(AppDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public FamilyController(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         // GET: FamiliesController
         public ActionResult Index()
         {
             var family = _context.Family.OrderByDescending(p => p.Name).ToList();
             return View(family);
-        }
-
-        // GET: FamiliesController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: FamiliesController/Create
@@ -42,8 +39,10 @@ namespace Finances.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Family family)
         {
+            family.Id = Guid.NewGuid().ToString();
             _context.Family.Add(family);
             await _context.SaveChangesAsync();
+            //var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -55,45 +54,89 @@ namespace Finances.Controllers
         }
 
         // GET: FamiliesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            if (id != null)
+            {
+                Family family = await _context.Family.FirstOrDefaultAsync(p => p.Id == id);
+                if (family != null)
+                    return View(family);
+            }
+            return NotFound();
         }
 
-        // POST: FamiliesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Family family)
         {
-            try
+            _context.Family.Update(family);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> AddUser(string searchString, string familyId)
+        {
+            var users = from m in _context.User select m;
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                return RedirectToAction(nameof(Index));
+                users = users.Where(s => s.UserName.Contains(searchString));
             }
-            catch
+            ViewBag.familyid = familyId;
+            return View(await users.OrderBy(p => p.UserName).ToListAsync());
+        }
+
+        // POST: FamiliesController/AddUser
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUserToFamily(string userId, string familyId)
+        {
+            _context.FamilyUser.Add(new FamilyUser { UserId = userId, FamilyId = familyId });
+            _context.SaveChanges();            
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: FamiliesController/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id != null)
             {
-                return View();
+                Family family = await _context.Family.Include(x => x.FamilyUser).ThenInclude(x => x.User).FirstOrDefaultAsync(p => p.Id == id);
+                if (family != null)
+                    return View(family);
             }
+            return NotFound();
         }
 
         // GET: FamiliesController/Delete/5
-        public ActionResult Delete(int id)
+        [ActionName("Delete")]
+        public async Task<IActionResult> ConfirmDelete(string id)
         {
-            return View();
+            if (id != null)
+            {
+                Family family = await _context.Family.FirstOrDefaultAsync(p => p.Id == id);
+                if (family != null)
+                    return View(family);
+            }
+            return NotFound();
         }
 
-        // POST: FamiliesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(string id)
         {
-            try
+            if (id != null)
             {
-                return RedirectToAction(nameof(Index));
+                Family family = await _context.Family.FirstOrDefaultAsync(p => p.Id == id);
+                if (family != null)
+                {
+                    _context.Family.Remove(family);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return NotFound();
         }
     }
 }
