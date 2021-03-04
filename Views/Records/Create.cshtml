@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Новий запис</h1>
 
 <h4>EntityBase</h4>
 <hr />
@@ -16,7 +16,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" value="@User.Identity.Name" asp-for="EntityBase.TheUser" class="form-control" />
-                <span asp-validation-for="EntityBase.TheUser" class="text-danger"></span>
+                <input type="hidden" value="noFamily" asp-for="EntityBase.Family" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="EntityBase.Amount" class="control-label"></label>
@@ -25,11 +25,14 @@
             </div>
             <div class="form-group form-check">
                 Дохід?
-                    <input class="form-check-input" asp-for="EntityBase.Direction" /> 
+                <select asp-for="EntityBase.Direction" id="Direction">
+                    <option value="@true">Дохід</option>
+                    <option value="@false">Витрати</option>
+                </select>
             </div>
-            <div class="form-group">
+            <div id="selectcategories" class="form-group">
                 <label asp-for="EntityBase.Category" class="control-label"></label>
-                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesList"></select>
+                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesList" id="selectcategories"></select>
                 <span asp-validation-for="EntityBase.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,8 +48,6 @@
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

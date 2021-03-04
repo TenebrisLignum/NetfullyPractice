@@ -1,17 +1,25 @@
 ﻿@model IEnumerable<Finances.Domain.Entities.User>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper AuthoringTagHelpers.TagHelpers.EmailTagHelper, AuthoringTagHelpers
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
+<h1>Користувачі</h1>
+<form asp-controller="User" asp-action="Index" method="get">
+    <p>Пошук:</p>
+    <p>
+        <input type="text" name="SearchString" />
+        <input type="submit" value="Пошук" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                Нікнейм
             </th>
             <th></th>
         </tr>
@@ -21,7 +29,9 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    <a asp-area="default" asp-controller="Profile" asp-action="Index" asp-route-userName="@item.UserName">
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </a>
                 </td>
                 <td>
                     @Html.ActionLink("Редагувати", "Edit", "User", new { area = "Admin", id = item.Id }, null) |

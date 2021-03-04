@@ -1,16 +1,15 @@
-﻿@using Finances.Domain.Entities;
-@model IEnumerable<Finances.Domain.Entities.User>
+﻿@model IEnumerable<Finances.Domain.Entities.User>
 @{
     ViewData["Title"] = "AddUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <h1>AddUser</h1>
+    <h1>Додати користувача до групи </h1>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserName)
+                    Користувачі:
                 </th>
                 <th></th>
             </tr>
@@ -20,13 +19,15 @@
             {
                 <tr>
                     <th>
-                        @Html.DisplayFor(modelItem => item.UserName)
+                        <a asp-controller="Profile" asp-action="Index" asp-route-userName="@item.UserName">
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </a>
                     </th>
                     <th>
                         <form asp-action="AddUserToFamily">
                             <input type="hidden" value="@item.Id" name="userId" />
                             <input type="hidden" value="@ViewBag.familyid" name="familyId" />
-                            <input type="submit" value="AddUserToFamily" class="btn btn-primary" />
+                            <input type="submit" value="Додати" class="btn btn-primary" />
                         </form>
                     </th>
                 </tr>

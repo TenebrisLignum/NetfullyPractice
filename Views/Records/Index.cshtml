@@ -1,18 +1,16 @@
 ﻿@model IEnumerable<Finances.Domain.Entities.EntityBase>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Мої записи";
 }
 
+<h1>Мої записи</h1>
 <p>
     @Html.ActionLink("Додати запис", "Create", "Records", null)
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TheUser)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Amount)
             </th>
@@ -37,9 +35,6 @@
                 continue;
             }
             <tr>
-                <th>
-                    @Html.DisplayFor(modelItem => item.TheUser)
-                </th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Amount) грн.
                 </td>

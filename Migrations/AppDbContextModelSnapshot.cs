@@ -25,6 +25,9 @@ namespace Finances.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Direction")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -36,6 +39,7 @@ namespace Finances.Migrations
                         new
                         {
                             Id = new Guid("34314e98-fad1-4033-a748-1e5bc57a3079"),
+                            Direction = false,
                             Name = "Продукти"
                         });
                 });
@@ -77,7 +81,7 @@ namespace Finances.Migrations
                             Id = new Guid("63dc8fa6-07ae-4391-8916-e057f71239ce"),
                             Amount = 0f,
                             Category = "None",
-                            DateAdded = new DateTime(2021, 3, 1, 8, 50, 16, 222, DateTimeKind.Local).AddTicks(4450),
+                            DateAdded = new DateTime(2021, 3, 3, 17, 54, 47, 768, DateTimeKind.Local).AddTicks(9077),
                             Direction = true,
                             TheUser = "admin"
                         });
@@ -141,7 +145,7 @@ namespace Finances.Migrations
                         new
                         {
                             Id = "44546e06-8719-4ad8-b88a-f271ae9d6eab",
-                            ConcurrencyStamp = "2a0ecb3e-c237-42b3-a8d4-fd8237636581",
+                            ConcurrencyStamp = "ee51afcf-1dec-4452-98d0-b9dc94d51bbd",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -333,6 +337,18 @@ namespace Finances.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<byte[]>("Avatar")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
@@ -340,17 +356,18 @@ namespace Finances.Migrations
                         {
                             Id = "3b62472e-4f66-49fa-a20f-e7685b9565d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6625bfc2-fc92-4c53-b796-16bb63f995bc",
+                            ConcurrencyStamp = "75d62d87-31c2-4433-b166-b1bd0b63666d",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEONyzdbUGASEB8PO2kRpFyS8zxwlcTt7PPv+YZRkzNNyoNxd6eu0y+3xzgmjdVQFcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHfuyfIs3Tnh4hpD4nof0yKMrlN9w4o1Fm0yszD48pSGaVh6lbopMIP9iBO1iMZAtQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "admin",
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

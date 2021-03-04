@@ -1,5 +1,4 @@
 ﻿@using MyCompany.Service
-
 <!DOCTYPE html>
 <html>
 
@@ -24,10 +23,12 @@
                         @Html.ActionLink("Панель адміністратора", "Index", "Home", new { area = "Admin" }, null)
                         <br>
                     }
-                    <a href="#"> Мій профіль </a><br>
-                    @Html.ActionLink("Керування записами", "Index", "Records")
+                    @Html.ActionLink("Мій профіль", "Index", "Profile", new { area = "default" }, null)
+                    
                     <br>
-                    @Html.ActionLink("Керування групами", "Index", "Family")
+                    @Html.ActionLink("Керування записами", "Index", "Records", new { area = "default" }, null)
+                    <br>
+                    @Html.ActionLink("Керування групами", "Index", "Family", new { area = "default" }, null)
                     <br>
                     <a href="#"> Згенерувати звіт </a><br><br>
                     <p>@User.Identity.Name</p>

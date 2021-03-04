@@ -1,0 +1,68 @@
+﻿@model Finances.Domain.Entities.User
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Редагувати інформацію</h1>
+
+<h4>Інформація</h4>
+<hr />
+<div class="row">
+    <form asp-action="UploadPicture" asp-controller="Profile" method="post" enctype="multipart/form-data">
+        <p>
+            Аватар<br />
+            <input name="Avatar" type="file" class="form-control" />
+            <input type="submit" value="Додати" />
+        </p>
+    </form>>
+    @using (Html.BeginForm("Edit", "Profile"))
+    {
+        <fieldset>
+            <legend> Редагування </legend>
+            <p>
+                Нікнейм: <br />
+                @Html.EditorFor(model => model.UserName)
+            </p>
+
+            <p>
+                Ім'я: <br />
+                @Html.EditorFor(model => model.FirstName)
+            </p>
+
+            <p>
+                Фамілія: <br />
+                @Html.EditorFor(model => model.LastName)
+            </p>
+
+            <p>
+                Email: <br />
+                @Html.EditorFor(model => model.Email)
+            </p>
+
+            <p>
+                Дата народження: <br />
+                @Html.EditorFor(model => model.DateAdded)
+            </p>
+
+            <p>
+                Номер телефону: <br />
+                @Html.EditorFor(model => model.PhoneNumber)
+            </p>
+
+            <p>
+                <input type="submit" value="Змінити" />
+            </p>
+
+        </fieldset>
+    }
+    <div>
+        @Html.ActionLink("Назад", "Index")
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

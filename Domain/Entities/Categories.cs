@@ -9,7 +9,10 @@ namespace Finances.Domain.Entities
     public class Categories
     {
         [Required]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } 
+
+        [Display(Name = "Дохід/Витрати")]
+        public virtual bool Direction { get; set; }
 
         [Display(Name = "Назва категорії")]
         public virtual string Name { get; set; }

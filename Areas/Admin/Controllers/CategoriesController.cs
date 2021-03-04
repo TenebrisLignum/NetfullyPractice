@@ -22,7 +22,7 @@ namespace Finances.Areas.Admin.Controllers
         // GET: CategoriesController
         public ActionResult Index()
         {
-            var catergories = _context.Categories.OrderByDescending(p => p.Name).ToList();
+            var catergories = _context.Categories.OrderByDescending(p => p.Direction).ToList();
             return View(catergories);
         }
 

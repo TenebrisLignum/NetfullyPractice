@@ -13,21 +13,21 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 2 "D:\VSprojects\Finances\Areas\Admin\Views\_ViewImports.cshtml"
+#line 3 "D:\VSprojects\Finances\Areas\Admin\Views\_ViewImports.cshtml"
 using Finances.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "D:\VSprojects\Finances\Areas\Admin\Views\_ViewImports.cshtml"
+#line 4 "D:\VSprojects\Finances\Areas\Admin\Views\_ViewImports.cshtml"
 using Finances.Domain.Entities;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Areas/Admin/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"c02f7e692fcb9f7c2ef136678a8b64a5f3e50d39", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"90dec3e53776dc5d925d46d6d559c3c9d63891be", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

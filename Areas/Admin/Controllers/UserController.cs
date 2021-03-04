@@ -1,11 +1,8 @@
 ﻿using Finances.Domain;
 using Finances.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,9 +17,14 @@ namespace Finances.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var user = _context.User.OrderByDescending(p => p.UserName).ToList();
+            var user = from m in _context.User select m;
+            user = user.OrderByDescending(p => p.UserName);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                user = user.Where(s => s.UserName.Contains(searchString));
+            }
             return View(user);
         }
 
@@ -83,7 +85,21 @@ namespace Finances.Areas.Admin.Controllers
                 User user = await _context.User.FirstOrDefaultAsync(p => p.Id == id);
                 if (user != null)
                 {
+                    var entityBase = from m in _context.EntityBase select m;
+                    entityBase = entityBase.Where(p => p.TheUser.Contains(user.UserName));
+                    foreach (var i in entityBase)
+                    {
+                        _context.EntityBase.Remove(i);
+                    }
+
+                    var familyUser = from m in _context.FamilyUser select m;
+                    familyUser = familyUser.Where(p => p.UserId.Contains(user.Id));
+                    foreach (var i in familyUser)
+                    {
+                        _context.FamilyUser.Remove(i);
+                    }
                     _context.User.Remove(user);
+
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }

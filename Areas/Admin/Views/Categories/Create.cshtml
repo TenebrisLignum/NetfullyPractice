@@ -1,33 +1,40 @@
 ﻿@model Finances.Domain.Entities.Categories
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper AuthoringTagHelpers.TagHelpers.EmailTagHelper, AuthoringTagHelpers
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Нова категорія</h1>
 
-<h4>Categories</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @using (Html.BeginForm("Create", "Categories"))
-        {
-            <input type="hidden" value="@ViewBag.Id" name="Id" />
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <select asp-for="Direction">
+                        <option value="@true">Дохід</option>
+                        <option value="@false">Витрати</option>
+                    </select>
+                </label>
+            </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Name)
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        }
-    </div>
-    <div>
-        @Html.ActionLink("Назад", "Delete", "Categories", new { area = "Admin" }, null)
+        </form>
     </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -5,12 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Family</h4>
+<h1>Редагувати інформацію про групу</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <form asp-controller="Family" asp-action="AddUser" method="get">
+            <p>Додати користувача:</p>
+            <p>
+                <input type="hidden" asp-for="Id" name="FamilyId" />
+                <input type="text" name="SearchString" />
+                <input type="submit" value="Пошук" />
+            </p>
+        </form>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -23,14 +29,35 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
-        <form asp-controller="Family" asp-action="AddUser" method="get">
-            <p>
-                Додати користувача:
-                <input type="hidden" asp-for="Id" name="FamilyId"/>
-                <input type="text" name="SearchString" />
-                <input type="submit" value="Пошук" />
-            </p>
-        </form>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Користувачі:
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.FamilyUser)
+                {
+                    <tr>
+                        <th>
+                            <a asp-controller="Profile" asp-action="Index" asp-route-userName="@item.User.UserName">
+                                @Html.DisplayFor(modelItem => item.User.UserName)
+                            </a>
+                        </th>
+                        <th>
+                            <form asp-action="DeleteUserFromFamily">
+                                <input type="hidden" value="@item.UserId" name="userId" />
+                                <input type="hidden" value="@item.FamilyId" name="familyId" />
+                                <input type="submit" value="Видалити" class="btn btn-primary" />
+                            </form>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 

@@ -1,6 +1,7 @@
 ﻿using Finances.Domain;
 using Finances.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,20 @@ namespace Finances.Areas.Admin.Controllers
     public class RecordsController : Controller
     {
         private readonly AppDbContext _context;
-
-        public RecordsController(AppDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public RecordsController(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var entityBase = _context.EntityBase.OrderByDescending(p => p.DateAdded).ToList();
-            return View(entityBase);
+            var entityBase = from m in _context.EntityBase select m;
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            entityBase = entityBase.Where(s => s.TheUser.Contains(user.UserName));
+            entityBase = entityBase.Where(s => s.Family.Contains("noFamily"));
+            return View(entityBase.OrderByDescending(p => p.DateAdded).ToList());
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -36,16 +41,18 @@ namespace Finances.Areas.Admin.Controllers
             }
             return NotFound();
         }
-
+        
         public ActionResult Create()
         {            
             var entityBase = new EntityBase();
             List<Categories> categories = _context.Categories.ToList();
-            List<Categories> ctgModels = categories
-                .Select(c => new Categories { Id = c.Id, Name = c.Name })
-                .ToList();
-            IndexViewModel ivm = new IndexViewModel { EntityBase = entityBase, Categories = ctgModels };
-            ViewBag.CategoriesList = new SelectList(ctgModels, "Name", "Name");
+            List<Categories> ctgModelsTrue = categories
+                .Select(c => new Categories { Id = c.Id, Name = c.Name, Direction = c.Direction }).Where(c => c.Direction.Equals(true)).ToList();
+            List<Categories> ctgModelsFalse = categories
+                .Select(c => new Categories { Id = c.Id, Name = c.Name, Direction = c.Direction }).Where(c => c.Direction.Equals(false)).ToList();
+            ViewBag.CategoriesList = new SelectList(categories, "Name", "Name");
+            ViewBag.CategoriesListTrue = new SelectList(ctgModelsTrue, "Name", "Name");
+            ViewBag.CategoriesListFalse = new SelectList(ctgModelsFalse, "Name", "Name");
             return View();
         }
 

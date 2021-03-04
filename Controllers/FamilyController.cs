@@ -22,9 +22,12 @@ namespace Finances.Controllers
             _userManager = userManager;
         }
         // GET: FamiliesController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var family = _context.Family.OrderByDescending(p => p.Name).ToList();
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            var familyUser = from m in _context.FamilyUser select m;
+            familyUser = familyUser.Where(p => p.UserId.Contains(user.Id));
+            var family = _context.Family.Where(p => familyUser.Select(p => p.FamilyId).Contains(p.Id));
             return View(family);
         }
 
@@ -40,9 +43,10 @@ namespace Finances.Controllers
         public async Task<IActionResult> Create(Family family)
         {
             family.Id = Guid.NewGuid().ToString();
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            _context.FamilyUser.Add(new FamilyUser { UserId = user.Id, FamilyId = family.Id });
             _context.Family.Add(family);
-            await _context.SaveChangesAsync();
-            //var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            await _context.SaveChangesAsync();            
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -58,7 +62,7 @@ namespace Finances.Controllers
         {
             if (id != null)
             {
-                Family family = await _context.Family.FirstOrDefaultAsync(p => p.Id == id);
+                Family family = await _context.Family.Include(x => x.FamilyUser).ThenInclude(x => x.User).FirstOrDefaultAsync(p => p.Id == id);
                 if (family != null)
                     return View(family);
             }
@@ -97,6 +101,8 @@ namespace Finances.Controllers
             return RedirectToAction("Index");
         }
 
+
+
         // GET: FamiliesController/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -105,6 +111,23 @@ namespace Finances.Controllers
                 Family family = await _context.Family.Include(x => x.FamilyUser).ThenInclude(x => x.User).FirstOrDefaultAsync(p => p.Id == id);
                 if (family != null)
                     return View(family);
+            }
+            return NotFound();
+        }        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUserFromFamily(string familyId, string userId)
+        {
+            if (userId != null)
+            {
+                FamilyUser familyUser = await _context.FamilyUser.SingleAsync(p => p.FamilyId == familyId && p.User.Id == userId);
+                if (userId != null)
+                {
+                    _context.FamilyUser.Remove(familyUser);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
             return NotFound();
         }
