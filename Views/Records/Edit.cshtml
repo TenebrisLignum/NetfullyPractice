@@ -1,48 +1,58 @@
-﻿@model Finances.Domain.Entities.EntityBase
+﻿@using Finances.Domain.Entities;
+@model IndexViewModel
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Редагування запису</h1>
+<h1>Edit</h1>
 
+<h4>EntityBase</h4>
 <hr />
 <div class="row">
-    @using (Html.BeginForm("Edit", "Records"))
-    {
-    <fieldset>
-        <legend> Редагування </legend>
-        <p>
-            Сума <br />
-            @Html.EditorFor(model => model.Amount)
-        </p>
-
-        <p>
-            Дохід? <br />
-            @Html.EditorFor(model => model.Direction)
-        </p>
-
-        <p>
-            Категорія <br />
-            @Html.EditorFor(model => model.Category)
-        </p>
-
-        <p>
-            <input type="submit" value="Змінити" />
-        </p>
-
-    </fieldset>
-    }
-    <div>
-        @Html.ActionLink("Назад", "Index")
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EntityBase.Id" />
+            <input type="hidden" asp-for="EntityBase.TheUser" />
+            <input type="hidden" asp-for="EntityBase.Family" />
+            <div class="form-group">
+                <label asp-for="EntityBase.TheUser" class="control-label"></label>
+                <input asp-for="EntityBase.TheUser" class="form-control" />
+                <span asp-validation-for="EntityBase.TheUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.Amount" class="control-label"></label>
+                <input asp-for="EntityBase.Amount" class="form-control" />
+                <span asp-validation-for="EntityBase.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                Дохід?
+                <select asp-for="EntityBase.Direction" id="Direction">
+                    <option value="@true">Дохід</option>
+                    <option value="@false">Витрати</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.Category" class="control-label"></label>
+                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesList" id="selectcategories"></select>
+                <span asp-validation-for="EntityBase.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.DateAdded" class="control-label"></label>
+                <input asp-for="EntityBase.DateAdded" class="form-control" />
+                <span asp-validation-for="EntityBase.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityBase.About" class="control-label"></label>
+                <input asp-for="EntityBase.About" class="form-control" />
+                <span asp-validation-for="EntityBase.About" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

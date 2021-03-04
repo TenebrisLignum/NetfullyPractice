@@ -150,8 +150,6 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScr
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Categories\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Delete.cshtml.g.cs
-D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Details.cshtml.g.cs
-D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Edit.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Categories\Edit.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Categories\Delete.cshtml.g.cs
@@ -174,3 +172,6 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\FamilyRecords\Details
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Categories\Create.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Edit.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Edit.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Details.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\ChangePassword.cshtml.g.cs

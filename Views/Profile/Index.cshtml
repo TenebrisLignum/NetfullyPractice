@@ -62,6 +62,7 @@
     <br>
     @if (Equals(User.Identity.Name, Model.UserName))
     {
-    <a asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a>
+        <a asp-action="ChangePassword" asp-route-id="@Model.Id">Змінити пароль</a>
     }
 </div>

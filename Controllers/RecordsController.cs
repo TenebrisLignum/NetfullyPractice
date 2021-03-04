@@ -76,9 +76,12 @@ namespace Finances.Areas.Admin.Controllers
         {
             if (id != null)
             {
+                List<Categories> categories = _context.Categories.ToList();
+                ViewBag.CategoriesList = new SelectList(categories, "Name", "Name");
                 EntityBase entityBase = await _context.EntityBase.FirstOrDefaultAsync(p => p.Id == id);
+                IndexViewModel ivm = new IndexViewModel { EntityBase = entityBase, Categories = categories };
                 if (entityBase != null)
-                    return View(entityBase);
+                    return View(ivm);
             }
             return NotFound();
         }

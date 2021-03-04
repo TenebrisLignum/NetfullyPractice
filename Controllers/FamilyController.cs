@@ -101,8 +101,6 @@ namespace Finances.Controllers
             return RedirectToAction("Index");
         }
 
-
-
         // GET: FamiliesController/Details/5
         public async Task<IActionResult> Details(string id)
         {

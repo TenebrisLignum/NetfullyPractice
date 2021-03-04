@@ -33,9 +33,5 @@ namespace Finances.Domain.Entities
 
         [DataType(DataType.Time)]
         public DateTime DateAdded { get; set; }
-        public EntityBase()
-        {
-            DateAdded = DateTime.Now;
-        }
     }
 }
