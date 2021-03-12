@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace Finances.Domain.Entities
-{
+{ 
     public class Categories
     {
         [Required]

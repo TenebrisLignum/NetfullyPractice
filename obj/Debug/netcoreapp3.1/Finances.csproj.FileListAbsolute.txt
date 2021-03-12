@@ -23,8 +23,6 @@ D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
-D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
-D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
@@ -38,9 +36,7 @@ D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Rel
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
@@ -175,3 +171,9 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Edit.cshtml.g
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Edit.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Details.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\ChangePassword.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\OrdersByDate.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Index.cshtml.g.cs
+D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll

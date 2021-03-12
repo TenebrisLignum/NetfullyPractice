@@ -1,0 +1,85 @@
+﻿@model Finances.Models.StatisticsViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<div class="row">
+    <h3 style="margin-left: 10px; margin-top: 10px;">Статистика користувача @User.Identity.Name</h3>
+    <br>
+    <div style="margin-left: 10px;">
+        @{
+            float earned = 0;
+            float spent = 0;
+            Dictionary<string, float> categoriesTrue = new Dictionary<string, float>(ViewBag.CategoriesListTrue.Count);
+            Dictionary<string, float> categoriesFalse = new Dictionary<string, float>(ViewBag.CategoriesListFalse.Count);
+
+            foreach (var i in ViewBag.CategoriesListTrue)
+            {
+                categoriesTrue.Add(i.Name, 0);
+            }
+            foreach (var i in ViewBag.CategoriesListFalse)
+            {
+                categoriesFalse.Add(i.Name, 0);
+            }
+
+            foreach (var item in Model.entityBase)
+            {
+                if (item.Direction == true)
+                {
+                    earned += item.Amount;
+                    categoriesTrue[item.Category] += item.Amount;
+                }
+                else
+                {
+                    spent += item.Amount;
+                    categoriesFalse[item.Category] += item.Amount;
+                }
+            }
+            <div style="float: left; margin-right: 50px;">
+                <p><b>Всьго зароблено: @earned грн.</b></p>
+                <p>З них:</p>
+                @foreach (KeyValuePair<string, float>
+                   keyValue in categoriesTrue)
+                {
+                    if (@keyValue.Value == 0)
+                    {
+                        continue;
+                    }
+                    <p>@keyValue.Key: @keyValue.Value грн.</p>
+                }
+                <br>
+            </div>
+            <div>
+                <p><b>Всьго витрачено: @spent грн.</b></p>
+                <p>З них:</p>
+                @foreach (KeyValuePair<string, float> keyValue in categoriesFalse)
+                {
+                    if (@keyValue.Value == 0)
+                    {
+                        continue;
+                    }
+                    <p>@keyValue.Key: @keyValue.Value грн.</p>
+                }
+            </div>
+        }
+    </div>
+    <br />
+    <div class="ct-chart" style="height: 400px; margin-left: -20px;"></div>
+</div>
+
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script type="text/javascript">
+
+    new Chartist.Line('.ct-chart', {
+        labels: @Html.Raw(Json.Serialize(ViewData["Labels"])),
+        series: @Html.Raw(Json.Serialize(ViewData["Nums"]))
+    }, {
+        fullWidth: true,
+        chartPadding: {
+            right: 40
+        }
+    });
+
+</script>

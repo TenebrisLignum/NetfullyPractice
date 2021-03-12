@@ -5,6 +5,13 @@
 }
 
 <h1>Мої записи</h1>
+<form asp-controller="Records" asp-action="OrdersByDate">
+    <p>Пошук за датою:</p>
+    <p>
+        <input type="date" name="date" />
+        <input type="submit" value="Пошук" />
+    </p>
+</form>
 <p>
     @Html.ActionLink("Додати запис", "Create", "Records", null)
 </p>

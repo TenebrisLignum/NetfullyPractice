@@ -31,6 +31,21 @@ namespace Finances.Areas.Admin.Controllers
             return View(entityBase.OrderByDescending(p => p.DateAdded).ToList());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> OrdersByDate(DateTime date)
+        {
+            ViewBag.date = date;
+            var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+            var allOrdersByDate = _context.EntityBase
+                .Where(s => s.TheUser.Contains(user.UserName))
+                .Where(s => s.Family.Contains("noFamily"))
+                .Where(a => a.DateAdded.Year == date.Year)
+                .Where(a => a.DateAdded.Month == date.Month)
+                .Where(a => a.DateAdded.Day == date.Day)
+                .OrderByDescending(p => p.DateAdded).ToList();
+            return View(allOrdersByDate);
+        }
+
         public async Task<IActionResult> Details(Guid id)
         {
             if (id != null)
@@ -41,9 +56,9 @@ namespace Finances.Areas.Admin.Controllers
             }
             return NotFound();
         }
-        
+
         public ActionResult Create()
-        {            
+        {
             var entityBase = new EntityBase();
             List<Categories> categories = _context.Categories.ToList();
             List<Categories> ctgModelsTrue = categories
@@ -95,7 +110,7 @@ namespace Finances.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [ActionName("Delete")]        
+        [ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(Guid id)
         {
             if (id != null)

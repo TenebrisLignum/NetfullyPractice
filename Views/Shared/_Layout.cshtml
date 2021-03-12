@@ -12,7 +12,7 @@
     <div class="sitename">
         <h2>Finances</h2>
     </div>
-    <div class="row">
+    <div class="main_content">
         <div class="column left">
             <h2>Опції</h2><br>
             <div class="options">
@@ -24,13 +24,14 @@
                         <br>
                     }
                     @Html.ActionLink("Мій профіль", "Index", "Profile", new { area = "default" }, null)
-                    
+
                     <br>
                     @Html.ActionLink("Керування записами", "Index", "Records", new { area = "default" }, null)
                     <br>
                     @Html.ActionLink("Керування групами", "Index", "Family", new { area = "default" }, null)
                     <br>
-                    <a href="#"> Згенерувати звіт </a><br><br>
+                    @Html.ActionLink("Переглянути статистику", "Index", "Statistics", new { area = "default" }, null)
+                    <br><br>
                     <p>@User.Identity.Name</p>
 
                     <form asp-area="" method="post" asp-controller="Account" asp-action="Logout">

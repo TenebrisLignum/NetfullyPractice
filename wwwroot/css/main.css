@@ -3,15 +3,20 @@
     box-sizing: border-box;
 }
 
-.row{
-    height: 700px;
+.main_content {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
 }
 
-.sitename{
+.sitename {
     border: 1px solid black;
     background-color: #01A65F;
     padding: 10px;
-    padding-left: 15px; 
+    padding-left: 15px;
     font-size: 150%;
 }
 
@@ -24,30 +29,52 @@
 .left {
     width: 20%;
     border: 1px solid black;
-    background-color:#32BF83;
+    background-color: #32BF83;
     padding-top: 15px;
     padding-left: 15px;
 }
 
-.options a{
+.options a {
     color: black;
 }
 
 .right {
-    width: 80%;    
+    width: 80%;
     padding-left: 15px;
     border: 1px solid black;
-    background-color:#74FFC4;
+    background-color: #74FFC4;
 }
 
-.textarea{
+.textarea {
     padding-top: 15px;
 }
 
-#text{
+dl {
+	margin: 0 0 20px 0;
+	overflow: hidden;    
+}
+dt {
+	font-weight: bold;
+	margin: 0;
+	padding: 5px 0;
+	width: 150px;
+	float: left;
+	clear: both;
+}
+
+dt:after {
+	content: ":";
+}
+
+dd {
+	margin: 0 0 0 150px;
+	padding: 5px 0;
+}
+
+#text {
     float: left;
 }
 
-#archive{
+#archive {
     padding-top: 15px;
 }
