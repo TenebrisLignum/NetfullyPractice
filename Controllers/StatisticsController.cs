@@ -25,34 +25,91 @@ namespace Finances.Controllers
         // GET: StatisticsController
         public async Task<IActionResult> Index(StatisticsViewModel svm)
         {
+            if (svm.DateSearch == "Тиждень")
+            {
+                svm.DateSearchDate = DateTime.Now.AddDays(-7);
+            }
+            if (svm.DateSearch == "Місяць")
+            {
+                svm.DateSearchDate = DateTime.Now.AddMonths(-1);
+            }
+            if (svm.DateSearch == "Рік")
+            {
+                svm.DateSearchDate = DateTime.Now.AddYears(-1);
+            }
             svm.entityBase = from m in _context.EntityBase select m;
             var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-            svm.entityBase = svm.entityBase
+
+            var familyUser = from m in _context.FamilyUser select m;
+            familyUser = familyUser.Where(p => p.UserId.Contains(user.Id));
+            var family = _context.Family
+                .Where(p => familyUser
+                .Select(p => p.FamilyId)
+                .Contains(p.Id));
+            ViewBag.FamiliesList = new SelectList(family, "Id", "Name");
+
+            if (svm.FamilySearch != null && svm.FamilySearch != "noFamily")
+            {
+                svm.entityBase = svm.entityBase.Where(s => s.Family.Contains(svm.FamilySearch)).OrderBy(s => s.DateAdded);
+            }
+            else
+            {
+                svm.entityBase = svm.entityBase
                 .Where(s => s.TheUser.Contains(user.UserName))
                 .Where(s => s.Family.Contains("noFamily"))
                 .OrderBy(s => s.DateAdded);
+            }
+             
+            var CategoriesListTrue = _context.Categories.Where(p => p.Direction == true).ToList();
+            var CategoriesListFalse = _context.Categories.Where(p => p.Direction == false).ToList();
+            Dictionary<string, float> categoriesTrue = new Dictionary<string, float>(CategoriesListTrue.Count);
+            Dictionary<string, float> categoriesFalse = new Dictionary<string, float>(CategoriesListFalse.Count);
 
-            EntityBase FirstEB = svm.entityBase.First();
-            DateTime dtStart = FirstEB.DateAdded;
-            DateTime dtEnd = DateTime.Now.AddDays(1);
+            foreach (var j in CategoriesListTrue)
+            {
+                categoriesTrue.Add(j.Name, 0);
+            }
+            foreach (var j in CategoriesListFalse)
+            {
+                categoriesFalse.Add(j.Name, 0);
+            }
+
+            DateTime dtStart;
+            if (svm.DateSearch == null || svm.DateSearch == "ВесьЧас")
+            {
+                EntityBase FirstEB = svm.entityBase.First();
+                dtStart = FirstEB.DateAdded.Date;
+            }
+            else
+            {
+                dtStart = svm.DateSearchDate.Date;
+            }
+            
+            DateTime dtEnd = DateTime.Now.Date;
+            svm.arraylength = (int)(dtEnd - dtStart).TotalDays + 1;
             int i = 0;
-            svm.cash[0] = new float[8];
-            svm.cash[1] = new float[8];
-            while (dtStart < dtEnd)
-            {               
+            svm.cash[0] = new float[svm.arraylength];
+            svm.cash[1] = new float[svm.arraylength];
+            svm.dates = new string[svm.arraylength];
+            while (dtStart <= dtEnd)
+            {
                 var entityBaseToday = svm.entityBase
                     .Where(a => a.DateAdded.Year == dtStart.Year)
                     .Where(a => a.DateAdded.Month == dtStart.Month)
                     .Where(a => a.DateAdded.Day == dtStart.Day);
-                foreach(var item in entityBaseToday)
+                foreach (var item in entityBaseToday)
                 {
                     if (item.Direction == true)
                     {
                         svm.cash[0][i] += item.Amount;
+                        svm.earned += item.Amount;
+                        categoriesTrue[item.Category] += item.Amount;
                     }
                     else
                     {
                         svm.cash[1][i] += item.Amount;
+                        svm.spent += item.Amount;
+                        categoriesFalse[item.Category] += item.Amount;
                     }
                 }
                 svm.dates[i] = dtStart.ToString("dd/MM/yyyy");
@@ -61,15 +118,9 @@ namespace Finances.Controllers
             }
             ViewData["Nums"] = svm.cash;
             ViewData["Labels"] = svm.dates;
-            ViewBag.CategoriesListTrue = _context.Categories.Where(p => p.Direction == true).ToList();
-            ViewBag.CategoriesListFalse = _context.Categories.Where(p => p.Direction == false).ToList();
+            ViewBag.categoriesTrue = categoriesTrue.OrderByDescending(p => p.Value);
+            ViewBag.categoriesFalse = categoriesFalse.OrderByDescending(p => p.Value);
             return View(svm);
-        }
-
-        // GET: StatisticsController/Create
-        public ActionResult Create()
-        {
-            return View();
         }
 
         // POST: StatisticsController/Create

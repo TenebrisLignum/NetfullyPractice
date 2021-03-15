@@ -10,58 +10,46 @@
     <br>
     <div style="margin-left: 10px;">
         @{
-            float earned = 0;
-            float spent = 0;
-            Dictionary<string, float> categoriesTrue = new Dictionary<string, float>(ViewBag.CategoriesListTrue.Count);
-            Dictionary<string, float> categoriesFalse = new Dictionary<string, float>(ViewBag.CategoriesListFalse.Count);
 
-            foreach (var i in ViewBag.CategoriesListTrue)
-            {
-                categoriesTrue.Add(i.Name, 0);
-            }
-            foreach (var i in ViewBag.CategoriesListFalse)
-            {
-                categoriesFalse.Add(i.Name, 0);
-            }
-
-            foreach (var item in Model.entityBase)
-            {
-                if (item.Direction == true)
-                {
-                    earned += item.Amount;
-                    categoriesTrue[item.Category] += item.Amount;
-                }
-                else
-                {
-                    spent += item.Amount;
-                    categoriesFalse[item.Category] += item.Amount;
-                }
-            }
             <div style="float: left; margin-right: 50px;">
-                <p><b>Всьго зароблено: @earned грн.</b></p>
-                <p>З них:</p>
+                <p><b>Всьго зароблено: @Model.earned грн.</b></p>
                 @foreach (KeyValuePair<string, float>
-                   keyValue in categoriesTrue)
+                  keyValue in ViewBag.categoriesTrue)
                 {
                     if (@keyValue.Value == 0)
                     {
                         continue;
                     }
-                    <p>@keyValue.Key: @keyValue.Value грн.</p>
+                    <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.earned*100, 1))%)</p>
                 }
                 <br>
             </div>
-            <div>
-                <p><b>Всьго витрачено: @spent грн.</b></p>
-                <p>З них:</p>
-                @foreach (KeyValuePair<string, float> keyValue in categoriesFalse)
+            <div style="float: left; margin-right: 50px;">
+                <p><b>Всьго витрачено: @Model.spent грн.</b></p>
+                @foreach (KeyValuePair<string, float> keyValue in ViewBag.categoriesFalse)
                 {
                     if (@keyValue.Value == 0)
                     {
                         continue;
                     }
-                    <p>@keyValue.Key: @keyValue.Value грн.</p>
+                    <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.spent*100, 1))%)</p>
                 }
+            </div>
+            <div style="display: block;">
+                <form asp-controller="Statistics" asp-action="Index">
+                    <select asp-for="DateSearch">
+                        <option value="ВесьЧас"> Весь час</option>
+                        <option value="Тиждень"> Тиждень</option>
+                        <option value="Місяць"> Місяць</option>
+                        <option value="Рік"> Рік</option>
+                    </select>
+                    <br>
+                    <select asp-for="FamilySearch" asp-items="ViewBag.FamiliesList">
+                        <option value="noFamily">Особиста</option>
+                    </select>
+                    <br>
+                    <input type="submit" value="Пошук" class="btn btn-primary" />
+                </form>
             </div>
         }
     </div>
