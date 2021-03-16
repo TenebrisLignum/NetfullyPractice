@@ -1,22 +1,25 @@
 ﻿@model Finances.Models.LoginViewModel
-<div>
-    <h1>Вхід в особистий кабінет</h1>
-    <div class="div-box">
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h2 class="mr-2">Редагувати інформацію </h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
         <form asp-area="" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
-            <div asp-validation-summary="All"></div>
             <div>
-                <label asp-for="UserName"></label>
-                <input name="UserName" asp-for="UserName" />
-                <span asp-validation-for="UserName"></span>
+                <label asp-for="UserName" class="control-label"></label>
+                <input name="UserName" asp-for="UserName" class="form-control" />
             </div>
             <div>
-                <label asp-for="Password"></label>
-                <input name="Password" type="password" asp-for="Password" />
-                <span asp-validation-for="Password"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input name="Password" type="password" asp-for="Password" class="form-control"/>
             </div>
             <div>
-                <label asp-for="RememberMe"></label>
-                <input type="checkbox" asp-for="RememberMe" />
+                <label asp-for="RememberMe" class="control-label"></label>
+                <input type="checkbox" asp-for="RememberMe"/>
                 <span asp-validation-for="RememberMe"></span>
             </div>
             <div>
@@ -24,4 +27,5 @@
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
 </div>

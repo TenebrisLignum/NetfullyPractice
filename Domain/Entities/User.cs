@@ -15,9 +15,10 @@ namespace Finances.Domain.Entities
         [Display(Name = "Ім'я")]
         public virtual string FirstName { get; set; }
 
-        [Display(Name = "Фамілія")]
+        [Display(Name = "Прізвище")]
         public virtual string LastName { get; set; }
 
+        [Display(Name = "Дата народження")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'.'MM'.'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAdded { get; set; }

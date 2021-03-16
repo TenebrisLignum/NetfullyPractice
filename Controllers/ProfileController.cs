@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -76,14 +77,21 @@ namespace Finances.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
-        {
+        {          
             User userUpdate = (User)await _userManager.FindByNameAsync(HttpContext.User.Identity.Name); ;
             userUpdate.UserName = user.UserName;
             userUpdate.FirstName = user.FirstName;
             userUpdate.LastName = user.LastName;
             userUpdate.Email = user.Email;
-            userUpdate.DateAdded = user.DateAdded;
             userUpdate.PhoneNumber = user.PhoneNumber;
+            if (user.DateAdded == DateTime.MinValue)
+            {
+                userUpdate.DateAdded = userUpdate.DateAdded;
+            }
+            else
+            {
+                userUpdate.DateAdded = user.DateAdded;
+            }
             _context.User.Update(userUpdate);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

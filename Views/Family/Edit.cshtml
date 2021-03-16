@@ -5,18 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Редагувати інформацію про групу</h1>
-<hr />
 <div class="row">
+    <div class="col-md-12 text-center">
+        <h3 class="mr-2">Редагувати групу @Model.Name</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
-        <form asp-controller="Family" asp-action="AddUser" method="get">
-            <p>Додати користувача:</p>
-            <p>
-                <input type="hidden" asp-for="Id" name="FamilyId" />
-                <input type="text" name="SearchString" />
-                <input type="submit" value="Пошук" />
-            </p>
-        </form>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -26,7 +22,17 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-dark" />
+            </div>
+        </form>
+        <form asp-controller="Family" asp-action="AddUser" method="get" class="form-group">
+            <div class="form-group">
+                <label class="control-label">Додати користувача</label>
+                <input type="hidden" asp-for="Id" name="FamilyId" />
+                <input type="text" name="SearchString" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Пошук" class="btn btn-dark" />
             </div>
         </form>
         <br>
@@ -52,17 +58,15 @@
                             <form asp-action="DeleteUserFromFamily">
                                 <input type="hidden" value="@item.UserId" name="userId" />
                                 <input type="hidden" value="@item.FamilyId" name="familyId" />
-                                <input type="submit" value="Видалити" class="btn btn-primary" />
+                                <input type="submit" value="Видалити" class="btn btn-danger" />
                             </form>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="col-md-4">
+    </div>
 </div>
 
 @section Scripts {

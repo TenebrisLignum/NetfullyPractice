@@ -1,5 +1,6 @@
 ﻿using Finances.Domain;
 using Finances.Domain.Entities;
+using Finances.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,28 +23,49 @@ namespace Finances.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int pageSize = 10;
             var entityBase = from m in _context.EntityBase select m;
             var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
             entityBase = entityBase.Where(s => s.TheUser.Contains(user.UserName));
-            entityBase = entityBase.Where(s => s.Family.Contains("noFamily"));
-            return View(entityBase.OrderByDescending(p => p.DateAdded).ToList());
+            entityBase = entityBase.Where(s => s.Family.Contains("noFamily")).OrderByDescending(p => p.DateAdded);
+
+            var count = await entityBase.CountAsync();
+            var items = await entityBase.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            PageIndexViewModel viewModel = new PageIndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                EntityBases = items
+            };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> OrdersByDate(DateTime date)
+        public async Task<IActionResult> OrdersByDate(DateTime date, int page = 1)
         {
+            int pageSize = 10;
             ViewBag.date = date;
             var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
-            var allOrdersByDate = _context.EntityBase
+            var entityBase = from m in _context.EntityBase select m;
+            var allOrdersByDate = entityBase
                 .Where(s => s.TheUser.Contains(user.UserName))
                 .Where(s => s.Family.Contains("noFamily"))
                 .Where(a => a.DateAdded.Year == date.Year)
                 .Where(a => a.DateAdded.Month == date.Month)
                 .Where(a => a.DateAdded.Day == date.Day)
-                .OrderByDescending(p => p.DateAdded).ToList();
-            return View(allOrdersByDate);
+                .OrderByDescending(p => p.DateAdded);
+
+            var count = await allOrdersByDate.CountAsync();
+            var items = await allOrdersByDate.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            PageIndexViewModel viewModel = new PageIndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                EntityBases = items
+            };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -75,6 +97,10 @@ namespace Finances.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EntityBase entityBase)
         {
+            if (entityBase.DateAdded == DateTime.MinValue)
+            {
+                entityBase.DateAdded = DateTime.Now;
+            }
             _context.EntityBase.Add(entityBase);
             await _context.SaveChangesAsync();
             try

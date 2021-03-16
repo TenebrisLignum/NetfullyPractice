@@ -11,7 +11,7 @@ namespace Finances.Domain.Entities
         [Key]
         public string Id { get; set; }
 
-        [Display(Name = "Назва групи")]
+        [Display(Name = "Назва")]
         public virtual string Name { get; set; }
 
         [Display(Name = "Учасники")]

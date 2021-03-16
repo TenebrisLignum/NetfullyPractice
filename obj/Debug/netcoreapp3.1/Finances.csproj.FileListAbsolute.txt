@@ -153,7 +153,6 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Inde
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Details.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Edit.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\User\Delete.cshtml.g.cs
-D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Create.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Create.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Family\Edit.cshtml.g.cs
@@ -169,7 +168,6 @@ D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Categorie
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Index.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Edit.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Edit.cshtml.g.cs
-D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Details.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Profile\ChangePassword.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\OrdersByDate.cshtml.g.cs
 D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Statistics\Index.cshtml.g.cs
@@ -177,3 +175,5 @@ D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 D:\VSprojects\Finances\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Create.cshtml.g.cs
+D:\VSprojects\Finances\obj\Debug\netcoreapp3.1\Razor\Views\Records\Details.cshtml.g.cs

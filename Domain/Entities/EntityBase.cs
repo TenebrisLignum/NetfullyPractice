@@ -19,7 +19,7 @@ namespace Finances.Domain.Entities
         [Display(Name = "Сума")]
         public virtual float Amount { get; set; }
 
-        [Display(Name = "Дохід/Витрати")]
+        [Display(Name = "Тип")]
         public virtual bool Direction { get; set; }
 
         [Display(Name = "Категорія")]
@@ -31,7 +31,8 @@ namespace Finances.Domain.Entities
         [Display(Name = "Група")]
         public virtual string Family { get; set; }
 
-        [DataType(DataType.Time)]
+        [Display(Name = "Час")]
+        [DataType(DataType.DateTime)]
         public DateTime DateAdded { get; set; }
     }
 }

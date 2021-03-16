@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div>
-    <h1>Додати користувача до групи </h1>
-    <table class="table">
+    <h2>Додати користувача до групи </h2>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>
@@ -27,7 +27,7 @@
                         <form asp-action="AddUserToFamily">
                             <input type="hidden" value="@item.Id" name="userId" />
                             <input type="hidden" value="@ViewBag.familyid" name="familyId" />
-                            <input type="submit" value="Додати" class="btn btn-primary" />
+                            <input type="submit" value="Додати" class="btn btn-dark" />
                         </form>
                     </th>
                 </tr>

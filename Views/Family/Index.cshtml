@@ -5,32 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Ваші групи</h1>
-
-<p>
-    <a asp-action="Create">Створити групу</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-controller="FamilyRecords" asp-action="Index" asp-route-familyId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати|</a>
-                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" method="get">
+                    <button class="btn btn-dark mt-2" type="submit">Створити нову</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h1 class="ml-1">Мої групи</h1>
+            </div>
+            <div class="col-md-4 text-right">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-2 text-center">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="FamilyRecords" asp-action="Index" asp-route-familyId="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Редагувати |</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,77 +1,117 @@
-﻿@model IEnumerable<Finances.Domain.Entities.EntityBase>
+﻿@using Finances.Models
+@model PageIndexViewModel
 
 @{
     ViewData["Title"] = "Мої записи";
 }
 
-<h1>Мої записи</h1>
-<form asp-controller="Records" asp-action="OrdersByDate">
-    <p>Пошук за датою:</p>
-    <p>
-        <input type="date" name="date" />
-        <input type="submit" value="Пошук" />
-    </p>
-</form>
-<p>
-    @Html.ActionLink("Додати запис", "Create", "Records", null)
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                Час
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            var day = DateTime.Today.Day;
-            foreach (var item in Model)
-            {
-                if (day != item.DateAdded.Day)
-                {
-                    var date = item.DateAdded.ToString("dd/MM/yyyy");
-                    <tr><td colspan="4"><b>Записи за @Html.DisplayFor(d => date)</b></td> </tr>
-                    day = item.DateAdded.Day;
-                }
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount) грн.
-                    </td>
-                    <td>
-                        @if (item.Direction)
-                        {
-                            <p style="color: green">Дохід</p>
-                        }
-                        else
-                        {
-                            <p style="color: darkred">Витрати</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Редагувати", "Edit", "Records", new { id = item.Id }, null) |
-                        @Html.ActionLink("Деталі", "Details", "Records", new { id = item.Id }, null) |
-                        @Html.ActionLink("Видалити", "Delete", "Records", new { id = item.Id }, null)
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-controller="Records" asp-action="Create" method="get">
+                        <button class="btn btn-dark mt-2" type="submit">Додати запис</button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <h1 class="ml-1">Мої записи</h1>
+                </div>
+                <div class="col-md-4 text-right">
+                    <form asp-controller="Records" asp-action="OrdersByDate">
+                        <label class="control-label">Пошук за датою:</label>
+                        <p>
+                            <input type="date" name="date" />
+                            <input type="submit" value="Пошук" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Сума
+                                </th>
+                                <th>
+                                    Тип
+                                </th>
+                                <th>
+                                    Категорія
+                                </th>
+                                <th>
+                                    Час
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var day = DateTime.Today.Day;
+                                foreach (var item in Model.EntityBases)
+                                {
+                                    if (day != item.DateAdded.Day)
+                                    {
+                                        var date = item.DateAdded.ToString("dd/MM/yyyy");
+                                        <tr>
+                                            <td colspan="5" style="background-color: #f0f0f0;"><b>Записи за @Html.DisplayFor(d => date)</b></td>
+                                        </tr>
+                                        day = item.DateAdded.Day;
+                                    }
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount) грн.
+                                        </td>
+                                        <td>
+                                            @if (item.Direction)
+                                            {
+                                                <span style="color: green">Дохід</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: darkred">Витрати</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Category)
+                                        </td>
+                                        <td>
+                                            @{var datetime = item.DateAdded.ToString("HH:mm");
+                                                <span> @Html.DisplayFor(p => datetime)</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Редагувати", "Edit", "Records", new { id = item.Id }, null) |
+                                            @Html.ActionLink("Деталі", "Details", "Records", new { id = item.Id }, null) |
+                                            @Html.ActionLink("Видалити", "Delete", "Records", new { id = item.Id }, null)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-12 text-center">
+                    @if (Model.PageViewModel.HasPreviousPage)
+                    {
+                        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="btn btn-outline-dark">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            Назад
+                        </a>
+                    }
+                    @if (Model.PageViewModel.HasNextPage)
+                    {
+                        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="btn btn-outline-dark">
+                            Вперед
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

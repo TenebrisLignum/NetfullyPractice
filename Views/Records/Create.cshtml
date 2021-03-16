@@ -6,10 +6,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Новий запис</h1>
-
-<hr />
 <div class="row">
+    <div class="col-md-12 text-center">
+        <h2 class="mr-2">Новий запис</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -19,32 +22,54 @@
             </div>
             <div class="form-group">
                 <label asp-for="EntityBase.Amount" class="control-label"></label>
-                <input asp-for="EntityBase.Amount" class="form-control" />
+                <input asp-for="EntityBase.Amount" type="number" class="form-control" required pattern="\d+(.\d{2})" />
                 <span asp-validation-for="EntityBase.Amount" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                Дохід?
-                <select asp-for="EntityBase.Direction" id="Direction">
+            <div class="form-group">
+                <label asp-for="EntityBase.Direction" class="control-label"></label>
+                <select asp-for="EntityBase.Direction" id="Direction" class="form-control">
                     <option value="@true">Дохід</option>
                     <option value="@false">Витрати</option>
                 </select>
             </div>
             <div id="selectcategories" class="form-group">
                 <label asp-for="EntityBase.Category" class="control-label"></label>
-                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesList" id="selectcategories"></select>
+                <select asp-for="EntityBase.Category" asp-items="ViewBag.CategoriesListTrue" id="selectcategories" class="form-control"></select>
                 <span asp-validation-for="EntityBase.Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" value="@DateTime.Now" asp-for="EntityBase.DateAdded" class="form-control" />
-                <span asp-validation-for="EntityBase.DateAdded" class="text-danger"></span>
+                <label asp-for="EntityBase.About" class="control-label"></label>
+                <input asp-for="EntityBase.About" class="form-control" />
+                <span asp-validation-for="EntityBase.About" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Додати" class="btn btn-primary" />
+                <label asp-for="EntityBase.DateAdded" class="control-label"></label>*
+                <input asp-for="EntityBase.DateAdded" class="form-control" />
+                <span asp-validation-for="EntityBase.DateAdded" class="text-danger"></span>
+                (*для поточної дати залиште це поле порожнім)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Додати" class="btn btn-dark" />
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<div>
+    <a asp-action="Index">Всі записи</a>
+</div>
+
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#Direction').change(function () {
+            var valofselect = $('#Direction').val();
+            if (valofselect == true) {
+                $('#selectcategories').attr('asp-items', 'CategoriesListTrue');
+            } else {
+                $('#selectcategories').attr('asp-items', 'CategoriesListFalse');
+            }
+        }
+    }
+</script>

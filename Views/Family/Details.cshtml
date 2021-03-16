@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Деталі групи</h1>
+<h1>Деталі групи @Model.Name </h1>
 
-<div class="row">
+<div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -28,6 +28,6 @@
             }
         </dd>
     </dl>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a> |
+        <a asp-action="Index">Всі групи</a>
 </div>

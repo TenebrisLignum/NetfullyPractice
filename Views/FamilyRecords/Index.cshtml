@@ -1,79 +1,126 @@
-﻿@model IEnumerable<Finances.Domain.Entities.EntityBase>
+﻿@using Finances.Models
+@model PageIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Записи групи</h1>
-
-<p>
-    <a asp-action="Create" asp-route-familyId="@ViewBag.familyId">Додати запис</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TheUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Direction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                Дата
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            var day = DateTime.Today.Day;
-            foreach (var item in Model)
-            {
-                if (day != item.DateAdded.Day)
-                {
-                    var date = item.DateAdded.ToString("dd/MM/yyyy");
-                    <tr><td colspan="4"><b>Записи за @Html.DisplayFor(d => date)</b></td> </tr>
-                    day = item.DateAdded.Day;
-                }
-                <tr>
-                    <td>
-                        <a asp-controller="Profile" asp-action="Index" asp-route-userName="@item.TheUser">
-                            @Html.DisplayFor(modelItem => item.TheUser)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-dark mt-2" asp-action="Create" asp-route-familyId="@ViewBag.familyId">Додати запис</a>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="ml-1">Записи @ViewBag.familyName</h3>
+                </div>
+                <div class="col-md-4 text-right">
+                    <form method="post">
+                        <input type="hidden" value="@ViewBag.familyId" name="familyId" class="form-control" />
+                        <label class="control-label">Пошук за датою:</label>
+                        <p>
+                            <input type="date" name="date" />
+                            <input type="submit" value="Пошук" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Користувач
+                                </th>
+                                <th>
+                                    Сума
+                                </th>
+                                <th>
+                                    Тип
+                                </th>
+                                <th>
+                                    Категорія
+                                </th>
+                                <th>
+                                    Час
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var day = DateTime.Today.Day;
+                                foreach (var item in Model.EntityBases)
+                                {
+                                    if (day != item.DateAdded.Day)
+                                    {
+                                        var date = item.DateAdded.ToString("dd/MM/yyyy");
+                                        <tr>
+                                            <td colspan="6" style="background-color: #f0f0f0;"><b>Записи за @Html.DisplayFor(d => date)</b></td>
+                                        </tr>
+                                        day = item.DateAdded.Day;
+                                    }
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Profile" asp-action="Index" asp-route-userName="@item.TheUser">
+                                                @Html.DisplayFor(modelItem => item.TheUser)
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Amount) грн.
+                                        </td>
+                                        <td>
+                                            @if (item.Direction)
+                                            {
+                                                <span style="color: green">Дохід</span>
+                                            }
+                                            else
+                                            {
+                                                <span style="color: darkred">Витрати</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Category)
+                                        </td>
+                                        <td>
+                                            @{var datetime = item.DateAdded.ToString("HH:mm");
+                                                <span> @Html.DisplayFor(p => datetime)</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Редагувати</a> |
+                                            <a asp-action="Details" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Деталі</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Видалити</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-12 text-center">
+                    @if (Model.PageViewModel.HasPreviousPage)
+                    {
+                        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="btn btn-outline-dark">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                            Назад
                         </a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    <td>
-                        @if (item.Direction)
-                        {
-                            <p style="color: green">Дохід</p>
-                        }
-                        else
-                        {
-                            <p style="color: darkred">Витрати</p>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Category)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Редагувати</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Деталі</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id" asp-route-familyId="@ViewBag.familyId">Видалити</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+                    }
+                    @if (Model.PageViewModel.HasNextPage)
+                    {
+                        <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="btn btn-outline-dark">
+                            Вперед
+                            <i class="glyphicon glyphicon-chevron-right"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

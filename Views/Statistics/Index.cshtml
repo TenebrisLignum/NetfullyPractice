@@ -6,55 +6,62 @@
 }
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 <div class="row">
-    <h3 style="margin-left: 10px; margin-top: 10px;">Статистика користувача @User.Identity.Name</h3>
-    <br>
-    <div style="margin-left: 10px;">
-        @{
-
-            <div style="float: left; margin-right: 50px;">
-                <p><b>Всьго зароблено: @Model.earned грн.</b></p>
-                @foreach (KeyValuePair<string, float>
-                  keyValue in ViewBag.categoriesTrue)
-                {
-                    if (@keyValue.Value == 0)
-                    {
-                        continue;
-                    }
-                    <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.earned*100, 1))%)</p>
-                }
-                <br>
-            </div>
-            <div style="float: left; margin-right: 50px;">
-                <p><b>Всьго витрачено: @Model.spent грн.</b></p>
-                @foreach (KeyValuePair<string, float> keyValue in ViewBag.categoriesFalse)
-                {
-                    if (@keyValue.Value == 0)
-                    {
-                        continue;
-                    }
-                    <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.spent*100, 1))%)</p>
-                }
-            </div>
-            <div style="display: block;">
-                <form asp-controller="Statistics" asp-action="Index">
-                    <select asp-for="DateSearch">
-                        <option value="ВесьЧас"> Весь час</option>
-                        <option value="Тиждень"> Тиждень</option>
-                        <option value="Місяць"> Місяць</option>
-                        <option value="Рік"> Рік</option>
-                    </select>
-                    <br>
-                    <select asp-for="FamilySearch" asp-items="ViewBag.FamiliesList">
-                        <option value="noFamily">Особиста</option>
-                    </select>
-                    <br>
-                    <input type="submit" value="Пошук" class="btn btn-primary" />
-                </form>
-            </div>
-        }
+    <div class="col-md-12">
+        <h3>Статистика користувача @User.Identity.Name</h3>
     </div>
-    <br />
-    <div class="ct-chart" style="height: 400px; margin-left: -20px;"></div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <p><b>Всього зароблено: @Model.earned грн.</b></p>
+            @foreach (KeyValuePair<string, float>
+            keyValue in ViewBag.categoriesTrue)
+            {
+                if (@keyValue.Value == 0)
+                {
+                    continue;
+                }
+                <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.earned*100, 1))%)</p>
+            }
+            <br>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="float: left; margin-right: 50px;">
+            <p><b>Всього витрачено: @Model.spent грн.</b></p>
+            @foreach (KeyValuePair<string, float> keyValue in ViewBag.categoriesFalse)
+            {
+                if (@keyValue.Value == 0)
+                {
+                    continue;
+                }
+                <p>@keyValue.Key: @keyValue.Value грн. (@(Math.Round(keyValue.Value/Model.spent*100, 1))%)</p>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="display: block;">
+            <form asp-controller="Statistics" asp-action="Index">
+                <select class="form-control" asp-for="DateSearch">
+                    <option value="ВесьЧас"> Весь час</option>
+                    <option value="Тиждень"> Тиждень</option>
+                    <option value="Місяць"> Місяць</option>
+                    <option value="Рік"> Рік</option>
+                </select>
+                <br>
+                <select class="form-control" asp-for="FamilySearch" asp-items="ViewBag.FamiliesList">
+                    <option value="noFamily">Особиста</option>
+                </select>
+                <br>
+                <input type="submit" value="Пошук" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="ct-chart" style="height: 400px; margin-left: -20px;"></div>
+    </div>
 </div>
 
 <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>

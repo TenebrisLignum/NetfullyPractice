@@ -1,80 +1,100 @@
-* {
-    margin: 0px;
-    box-sizing: border-box;
+body {
+    background-color: #fafafa;
 }
 
-.main_content {
-    position: fixed;
-    top: 64px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+a,
+input {
+    color: #05386B;
 }
 
-.sitename {
-    border: 1px solid black;
-    background-color: #01A65F;
-    padding: 10px;
-    padding-left: 15px;
-    font-size: 150%;
+.toggle-btn{
+	position: absolute;
+	z-index: 99;
+	margin-top: 7px;
+	margin-left: -10px;
 }
 
-.column {
-    float: left;
-    padding: 10px;
-    height: 100%;
+.toggle-button {
+    width: 30px;
+    height: 40px;
+    padding: 4px;
+    transition: .25s;
+    z-index: 15;
 }
 
-.left {
-    width: 20%;
-    border: 1px solid black;
-    background-color: #32BF83;
-    padding-top: 15px;
-    padding-left: 15px;
+.toggle-button:hover {
+    cursor: pointer;
 }
 
-.options a {
-    color: black;
-}
-
-.right {
+.toggle-button .menu-bar {
+    position: absolute;
+    border-radius: 2px;
     width: 80%;
-    padding-left: 15px;
-    border: 1px solid black;
-    background-color: #74FFC4;
+    transition: .5s;
 }
 
-.textarea {
-    padding-top: 15px;
+.toggle-button .menu-bar-top {
+    width: 30px;
+    border: 4px solid #555;
+    border-bottom: none;
+    top: 0;
 }
 
-dl {
-	margin: 0 0 20px 0;
-	overflow: hidden;    
-}
-dt {
-	font-weight: bold;
-	margin: 0;
-	padding: 5px 0;
-	width: 150px;
-	float: left;
-	clear: both;
+.toggle-button .menu-bar-middle {
+    width: 30px;
+    height: 4px;
+    background-color: #555;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    top: 4px;
 }
 
-dt:after {
-	content: ":";
+.toggle-button .menu-bar-bottom {
+    width: 30px;
+    border: 4px solid #555;
+    border-top: none;
+    top: 22px;
 }
 
-dd {
-	margin: 0 0 0 150px;
-	padding: 5px 0;
+.button-open .menu-bar-top {
+    transform: rotate(45deg) translate(8px, 8px);
+    transition: .5s;
 }
 
-#text {
-    float: left;
+.button-open .menu-bar-middle {
+    transform: translate(230px);
+    transition: .1s ease-in;
+    opacity: 0;
 }
 
-#archive {
-    padding-top: 15px;
+.button-open .menu-bar-bottom {
+    transform: rotate(-45deg) translate(8px, -7px);
+    transition: .5s;
+}
+
+.sidebar{	
+	margin-top: 30px;
+}
+
+.sidebar li{	
+	color: white;
+}
+
+.menu-wrap {
+	color: white;
+    background-color: #212529;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 280px;
+    margin-left: -280px;
+    font-size: 1em;
+    font-weight: 700;
+    overflow: auto;
+    transition: .25s;
+    z-index: 10;
+}
+
+.menu-show {
+    margin-left: 0;
 }
